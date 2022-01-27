@@ -1,0 +1,29 @@
+@model WebLoginModel;
+
+<h1 class="text-info" >Login to Admin Panel</h1>
+<form asp-controller="Login" asp-action="Submit">
+    <div class="container">
+        <div class="col mt-2">
+            <div class="form-group mx-sm-3 mb-2">
+                <label>Username:</label>
+                <input type="text" class="form-control" asp-for="@Model.username" name="myUsername" maxlength="20" style="max-width: 250px;">
+                <span asp-validation-for="@Model.username" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label>Password:</label>
+                <input type="text" class="form-control" name="myPassword" maxlength="20" style="max-width: 250px;">
+            </div>
+            <div class="form-group" style="padding-left: 15px;">
+                <input type="submit" text="Submit" value="Login" class="btn btn-info"/>
+                <span><a asp-controller="Home" asp-action="Index"><input type="button" class="btn btn-info" value="Cancel"></a></span>
+                    <span class="text-danger" style="margin-left:5px;">@TempData["feedback"]</span>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script>
+        @* startAutoLogout(); *@
+    </script>
+}
