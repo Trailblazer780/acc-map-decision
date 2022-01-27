@@ -1,5 +1,5 @@
 {
-  "FilePath": "e:\\Y2S2\\INFT 3000\\NSCC\\acc-map-decision\\christamasindex.csproj",
+  "FilePath": "e:\\Y2S2\\INFT 3000\\NSCC\\acc-map-decision\\accmapdecision.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",
@@ -15616,8 +15616,13 @@
     ],
     "CSharpLanguageVersion": 900
   },
-  "RootNamespace": "christamasindex",
+  "RootNamespace": "accmapdecision",
   "Documents": [
+    {
+      "FilePath": "e:\\Y2S2\\INFT 3000\\NSCC\\acc-map-decision\\Views\\Login\\Index.cshtml",
+      "TargetPath": "Views\\Login\\Index.cshtml",
+      "FileKind": "mvc"
+    },
     {
       "FilePath": "e:\\Y2S2\\INFT 3000\\NSCC\\acc-map-decision\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
@@ -15641,6 +15646,11 @@
     {
       "FilePath": "e:\\Y2S2\\INFT 3000\\NSCC\\acc-map-decision\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "e:\\Y2S2\\INFT 3000\\NSCC\\acc-map-decision\\Views\\Admin\\index.cshtml",
+      "TargetPath": "Views\\Admin\\index.cshtml",
       "FileKind": "mvc"
     }
   ],
