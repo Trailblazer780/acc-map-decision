@@ -1,3 +1,18 @@
 ﻿body {
   margin-top: 30px;
 }
+.firstButton {
+  width: 350px;
+}
+.buttonContainer{
+  padding: 10px;
+}
+
+#footer {
+  position: fixed;
+  padding: 10px 10px 10px 10px;
+  /* padding-bottom: 10px; */
+  bottom: 0;
+  width: 100%;
+
+}
