@@ -18,8 +18,8 @@ services:
     # these variables could be stored in an external .env file as well
     # w0090347 will automatically be set to full access to sean_dotnetcoreSamples
     environment:
-      MYSQL_ROOT_PASSWORD: nscc
-      MYSQL_DATABASE: dotnetcoreSamples
+      MYSQL_ROOT_PASSWORD: 1337
+      MYSQL_DATABASE: NSCCACC
       MYSQL_USER: Trailblazer780
       MYSQL_PASSWORD: 1337
     networks:
