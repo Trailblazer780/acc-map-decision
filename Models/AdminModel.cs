@@ -17,5 +17,13 @@ namespace accmapdecision.Models {
 
         }
 
+        public void Logout() {
+            // logout the user by clearing the session
+            context.Session.Clear();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+            optionsBuilder.UseMySql(Connection.CONNECTION_STRING, new MySqlServerVersion(new Version(8, 0, 11)));
+        }
     }
 }

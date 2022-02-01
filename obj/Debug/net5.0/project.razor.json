@@ -15649,8 +15649,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\Y2S2\\INFT 3000\\NSCC\\acc-map-decision\\Views\\Admin\\index.cshtml",
-      "TargetPath": "Views\\Admin\\index.cshtml",
+      "FilePath": "e:\\Y2S2\\INFT 3000\\NSCC\\acc-map-decision\\Views\\Admin\\Index.cshtml",
+      "TargetPath": "Views\\Admin\\Index.cshtml",
       "FileKind": "mvc"
     }
   ],

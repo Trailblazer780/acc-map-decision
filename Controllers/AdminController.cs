@@ -18,5 +18,15 @@ namespace accmapdecision.Controllers {
             }
             return View("Index", Admin);
         }
+
+        [HttpPost]
+        public IActionResult Logout() {
+            // construction of the model
+            Admin = new AdminModel(HttpContext);
+            // log the user out
+            Admin.Logout();
+            // return the view
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
