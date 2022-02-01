@@ -47,3 +47,4 @@ E:\Y2S2\INFT 3000\NSCC\acc-map-decision\obj\Debug\net5.0\accmapdecision.pdb
 E:\Y2S2\INFT 3000\NSCC\acc-map-decision\obj\Debug\net5.0\accmapdecision.genruntimeconfig.cache
 E:\Y2S2\INFT 3000\NSCC\acc-map-decision\obj\Debug\net5.0\Razor\Views\Admin\index.cshtml.g.cs
 E:\Y2S2\INFT 3000\NSCC\acc-map-decision\obj\Debug\net5.0\Razor\Views\Login\Index.cshtml.g.cs
+E:\Y2S2\INFT 3000\NSCC\acc-map-decision\bin\Debug\net5.0\CsvHelper.dll
