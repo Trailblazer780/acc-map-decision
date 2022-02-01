@@ -16,3 +16,8 @@
   width: 100%;
 
 }
+
+.loginCenter {
+  display: flex;
+  justify-content: center;
+}
