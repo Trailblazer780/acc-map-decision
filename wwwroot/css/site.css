@@ -16,8 +16,79 @@
   width: 100%;
 
 }
+/* -------------------  Button and text NSCC Colours ------------------*/
+.btn-info{
+  background-color: #004477 !important;
+  border-color: #004477 !important
+}
+.btn-info:hover{
+  background-color: white !important;
+  border-color: #004477 !important;
+  color: black !important;
+}
 
+.text-info{
+  color: #004477 !important;
+}
+/* -------------------------------------------------------------------- */
+
+/* ----------------- Login Screen ------------------ */
 .loginCenter {
   display: flex;
   justify-content: center;
+}
+
+form {
+  display: inline-block;
+}
+
+/* --------------------------------------------------------------------- */
+
+/* ------------------ Admin Panel styles -------------------------------  */
+
+.adminpanelbtn{
+  width: 250px;
+  display: flex;
+  text-align: center;
+}
+.adminPanelRow {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.content {  
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.content-section {
+  margin-bottom:20px;
+}
+
+.content-caption{
+  color: #157347;
+  padding-top:15px;
+  padding-bottom:10px;
+}
+
+.content-list{
+  border-left: 5px solid #157347;
+  margin-left:30px;
+  padding-left:10px;
+  padding-top:5px;        
+  padding-bottom:3px;   
+}
+.conent-list-a{
+  font-weight: bold;
+  font-size:14px;
+  color: #7c7c7c;
+  text-decoration: none;
+}
+.content-list-a:hover{
+  text-decoration: underline;
+}
+
+.courseButtons{
+  padding-right: 5px;
 }

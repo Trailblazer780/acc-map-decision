@@ -1,0 +1,38 @@
+@model AdminModel;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - View Courses   <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+
+    <div class="container">
+        <div>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Course Code</th>
+                            <th scope="col">View/Edit/Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.course){
+                        <tr>
+                            <td>@item.course_name</td>
+                            <td>@item.course_code</td>
+                            <td>
+                                <span class="courseButtons"><input class="btn btn-info" type="Submit" value="View"></span>
+                                <span class="courseButtons"><input class="btn btn-info" type="Submit" value="Edit"></span>
+                                <span class="courseButtons"><input class="btn btn-danger" type="Submit" value="Delete"></span>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

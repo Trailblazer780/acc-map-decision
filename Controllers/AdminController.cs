@@ -19,6 +19,17 @@ namespace accmapdecision.Controllers {
             return View("Index", Admin);
         }
 
+        public IActionResult AllCourses() {
+            // construction of the model
+            Admin = new AdminModel(HttpContext);
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            return View("AllCourses", Admin);
+        }
+
+
         [HttpPost]
         public IActionResult Logout() {
             // construction of the model
