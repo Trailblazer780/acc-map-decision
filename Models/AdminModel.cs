@@ -17,6 +17,14 @@ namespace accmapdecision.Models {
 
         }
 
+        private DbSet<Course> tblCourse {get; set;}
+
+        public List<Course> course {
+            get {
+                return tblCourse.OrderBy(i => i.id).ToList();
+            }
+        }
+
         public void Logout() {
             // logout the user by clearing the session
             context.Session.Clear();

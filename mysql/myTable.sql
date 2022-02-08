@@ -39,10 +39,10 @@ INSERT INTO `tblUsers` (`username`, `password`, `salt`) VALUES
 -- Table structure for table `course`
 --
 
-DROP TABLE IF EXISTS `course`;
+DROP TABLE IF EXISTS `tblCourse`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `course` (
+CREATE TABLE `tblCourse` (
   `id` int NOT NULL AUTO_INCREMENT,
   `course_code` varchar(20) DEFAULT NULL,
   `course_name` varchar(255) DEFAULT 'None',
@@ -58,9 +58,9 @@ CREATE TABLE `course` (
 -- Dumping data for table `course`
 --
 
-LOCK TABLES `course` WRITE;
+LOCK TABLES `tblCourse` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES (1,'BIOL 1046','College Biology I',1.5,'College Biology I is presented as an introductory general course at the post-secondary level and will prepare students for further study. This course covers scientific methodology, plant and animal biology, biochemistry, cytology and genetics. The modes of instruction vary between lecture, discussion, experiments and discovery. ','The purpose of this course, in conjunction with Biology 1047, is to provide students with the academic biology skills required or recommended for entrance into college and other post-secondary programs with academic biology pre-requisites such as Dental Assisting, Medical Laboratory  Technology,  Pharmacy  Technology,  Water Resources and Nursing. '),
+INSERT INTO `tblCourse` VALUES (1,'BIOL 1046','College Biology I',1.5,'College Biology I is presented as an introductory general course at the post-secondary level and will prepare students for further study. This course covers scientific methodology, plant and animal biology, biochemistry, cytology and genetics. The modes of instruction vary between lecture, discussion, experiments and discovery. ','The purpose of this course, in conjunction with Biology 1047, is to provide students with the academic biology skills required or recommended for entrance into college and other post-secondary programs with academic biology pre-requisites such as Dental Assisting, Medical Laboratory  Technology,  Pharmacy  Technology,  Water Resources and Nursing. '),
 (2,'BIOL 1047','College Biology II',1.5,'College Biology II is a continuation of Biology I and will prepare students for further study. This course covers evolution, and human anatomy and physiology with an option to include a research project in an area of the student\'s interest. The modes of instruction vary between lecture, discussion, experiments and discovery. ','The purpose of this course is to provide students with the academic biology skills required or recommended for entrance into college and other post-secondary programs with academic biology pre-requisites such as Dental Assisting,  Medical Laboratory  Technology,  Pharmacy  Technology,  Water Resources and Nursing.'),
 (3,'CHEM 1046','College Chemistry I',1.5,'Chemistry I and Chemistry II are presented as introductory general courses at the post-secondary level, and will prepare students for further study. These courses start with definitions of matter, and fundamentals of chemistry such as the atom and elements, and proceed through to qualitative and quantitative problem solving. The modes of instruction vary between lecture and discovery with plenty of time given to allowing the student to carry out calculations, online interactive research, tutoria','The purpose of this course is to provide students with the academic chemistry skills required for entrance into college or university programs with academic chemistry pre-requisites such as  Water Resources  Technology, Nursing, Dental Assisting and Pharmacy  Technology.'),
 (4,'CHEM 1047','College Chemistry II',1.5,'Chemistry I and Chemistry II are presented as introductory general courses at the post-secondary level, and will prepare students for further study. These courses start with definitions of matter, and fundamentals of chemistry such as the atom and elements, and proceed through to qualitative and quantitative problem solving. The modes of instruction vary between lecture and discovery with plenty of time given to allowing the student to carry out calculations, online interactive research, tutoria','The purpose of this course is to provide students with the academic chemistry skills required for entrance into college or university programs with academic chemistry pre-requisites such as  Water Resources  Technology, Nursing, Dental Assisting and Pharmacy  Technology. '),
