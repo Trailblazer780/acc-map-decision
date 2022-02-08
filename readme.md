@@ -5,7 +5,7 @@ For convenience, I have created a accmapdecision template of an ASP.NET Core 5 p
 ## Available Scripts
 
 In the project directory, you can run:
-
+### `docker compose up --build`
 ### `dotnet watch run`
 
 To build and run the ASP.NET Core 5 web app
