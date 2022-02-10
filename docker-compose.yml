@@ -7,6 +7,7 @@ services:
       context: ./mysql
       dockerfile: Dockerfile
     image: mysql-server
+    platform: linux/x86_64
     container_name: my-mysql-server
     command: --default-authentication-plugin=mysql_native_password
     restart: always
