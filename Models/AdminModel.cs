@@ -18,10 +18,17 @@ namespace accmapdecision.Models {
         }
 
         private DbSet<Course> tblCourse {get; set;}
+        private DbSet<Semester> tblSemester {get; set;}
 
         public List<Course> course {
             get {
                 return tblCourse.OrderBy(i => i.id).ToList();
+            }
+        }
+
+        public List<Semester> semester {
+            get {
+                return tblSemester.OrderBy(i => i.semester_id).ToList();
             }
         }
 
