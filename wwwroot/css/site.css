@@ -56,4 +56,12 @@ form {
   justify-content: center;
   padding-bottom: 10px;
 }
+/* ------------------ Admin Panel styles -------------------------------  */
 
+.centerDelete{
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------- */

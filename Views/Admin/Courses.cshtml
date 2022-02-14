@@ -43,11 +43,11 @@
                                 </span>
                                 <span class="courseButtons">
                                     <form asp-controller="Admin" asp-action="Delete">
-                                        <input type="hidden" value="@item.id">
-                                        <input type="hidden" value="@item.course_code">
-                                        <input type="hidden" value="@item.course_name">
-                                        <input type="hidden" value="@item.course_description">
-                                        <input type="hidden" value="@item.course_rationale">
+                                        <input type="hidden" name="id" value="@item.id">
+                                        <input type="hidden" name="code" value="@item.course_code">
+                                        <input type="hidden" name="name" value="@item.course_name">
+                                        <input type="hidden" name="description" value="@item.course_description">
+                                        <input type="hidden" name="rationale" value="@item.course_rationale">
                                         <input class="btn btn-danger" type="Submit" value="Delete">
                                     </form>
                                 </span>
