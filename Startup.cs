@@ -25,7 +25,7 @@ namespace accmapdecision
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<accmapdecision.Models.MyModel>();
+            services.AddDbContext<accmapdecision.Models.CSVModel>();
             services.AddDistributedMemoryCache();
             services.AddSession(options => {
                 // Set a short timeout for easy testing.

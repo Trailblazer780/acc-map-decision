@@ -10,6 +10,9 @@ namespace accmapdecision.Controllers {
     public class HomeController : Controller {
 
         public IActionResult Index() {
+            CSVModel csv = new CSVModel();
+            csv.WriteCSV();
+
             return View();
         }
 
