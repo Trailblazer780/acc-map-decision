@@ -1,0 +1,20 @@
+@model Course;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - View Course  <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+    <div class="container">
+        <h1 class="text-center text-info">Viewing course info for: @Model.course_name</h1>
+        <div><strong>Course Code:</strong> @Model.course_code</div>
+        <hr>
+        <div><strong>Course Name:</strong> @Model.course_name</div>
+        <hr>
+        <div><strong>Course Description:</strong> @Model.course_description</div>
+        <hr>
+        <div><strong>Course rationale:</strong> @Model.course_rationale</div>
+        <hr>
+        <div class="text-center">
+            <a href="AllCourses"><input type="submit" class="btn btn-info" value="Back to View Course"/></a>
+        </div>
+    </div>
+</div>

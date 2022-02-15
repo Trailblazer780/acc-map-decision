@@ -1,0 +1,38 @@
+@model Course;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - Edit Course  <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+
+    <div class="container">
+        <div stlye="padding-bottom: 10px">
+            <h1 class="text-center text-info">Editing @Model.course_name</h1>
+        </div>
+        <form style="width: 100%;" asp-controller="Admin">
+            <input type="hidden" name="id" asp-for="@Model.id">
+            <div class="form-group" style="max-width: 300px !important">
+                <label for="code"><strong>Course Code:</strong></label>
+                <input class="form-control" type="text" name="code" value="@Model.course_code">
+            </div>
+            <hr>
+            <div class="form-group" style="max-width: 300px !important">
+                <label for="name"><strong>Course Name:</strong></label>
+                <input stlye="max-width: 300px !important" class="form-control" type="text" name="name" value="@Model.course_name"></div>
+            <hr>
+            <div class="form-group">
+                <label for="description"><strong>Course Description:</strong></label> 
+                <textarea class="form-control" rows="6" name="description">@Model.course_description</textarea></div>
+            <hr>
+            <div class="form-group">
+                <label for="rationale"><strong>Course rationale:</strong></label> 
+                <textarea class="form-control" rows="6" type="textarea" name="rationale">@Model.course_rationale</textarea></div>
+            <hr>
+            <div class="centerDelete form-group">
+                <span><button class="btn btn-danger" type="submit">Edit</button></span>
+                <div style="padding-left: 5px;">
+                    <span><a asp-controller="Admin" asp-action="AllCourses"><input type="button" class="btn btn-info" value="Cancel"></a></span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

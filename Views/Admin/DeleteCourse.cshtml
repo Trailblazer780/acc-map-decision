@@ -5,18 +5,24 @@
     <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
 
     <div class="container">
-        <h1 class="text-center text-info">Are you sure you want to delete @Model.course_name?</h1>
+        <div stlye="padding-bottom: 10px">
+            <h1 class="text-center text-info">Are you sure you want to delete @Model.course_name?</h1>
+        </div>
         <div><strong>Course Code:</strong> @Model.course_code</div>
+        <hr>
         <div><strong>Course Name:</strong> @Model.course_name</div>
+        <hr>
         <div><strong>Course Description:</strong> @Model.course_description</div>
         <hr>
+        <div><strong>Course rationale:</strong> @Model.course_rationale</div>
+        <hr>
         <div class="centerDelete">
-            <form asp-controller="Admin" asp-action="DeleteSubmit">
+            <form asp-controller="Admin" asp-action="DeleteCourseSubmit">
                 <input type="hidden" name="id" asp-for="@Model.id">
                 <div class="form-row" style="padding-left: 5px;">
                     <div>
                         <span><button class="btn btn-danger" type="submit">Delete</button></span>
-                        <span><a asp-controller="Admin" asp-action="Index"><input type="button" class="btn btn-info" value="Cancel"></a></span>
+                        <span><a asp-controller="Admin" asp-action="AllCourses"><input type="button" class="btn btn-info" value="Cancel"></a></span>
                     </div>
                 </div>
             </form>

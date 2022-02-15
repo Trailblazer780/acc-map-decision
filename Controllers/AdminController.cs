@@ -19,35 +19,52 @@ namespace accmapdecision.Controllers {
             return View("Index", Admin);
         }
 
-        public IActionResult Courses() {
+        public IActionResult AllCourses() {
             // construction of the model
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
-            return View("Courses", Admin);
+            return View("AllCourses", Admin);
         }
 
-        public IActionResult Semesters() {
+        public IActionResult AllSemesters() {
             // construction of the model
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
-            return View("Semesters", Admin);
+            return View("AllSemesters", Admin);
         }
 
 
         [HttpPost]
-        public IActionResult Delete(int id, string code, string name, string description, string rationale) {
+        public IActionResult ViewCourse(int id, string code, string name, string description, string rationale) {
+            // construction of the model
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+            Course course = new Course();
+            course.id = id;
+            course.course_code = code;
+            course.course_name = name;
+            course.course_description = description;
+            course.course_rationale = rationale;
+            return View("ViewCourse", course);
+        }
 
+        [HttpPost]
+        public IActionResult EditCourse(int id, string code, string name, string description, string rationale) {
+            // construction of the model
+            Admin = new AdminModel(HttpContext);
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
             Course course = new Course();
             course.id = id;
             course.course_code = code;
@@ -55,11 +72,27 @@ namespace accmapdecision.Controllers {
             course.course_description = description;
             course.course_rationale = rationale;
 
-            return View("Delete", course);
+            return View("EditCourse", course);
         }
 
         [HttpPost]
-        public IActionResult DeleteSubmit(int id){
+        public IActionResult DeleteCourse(int id, string code, string name, string description, string rationale) {
+            Admin = new AdminModel(HttpContext);
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Course course = new Course();
+            course.id = id;
+            course.course_code = code;
+            course.course_name = name;
+            course.course_description = description;
+            course.course_rationale = rationale;
+            return View("DeleteCourse", course);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCourseSubmit(int id){
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
@@ -71,8 +104,6 @@ namespace accmapdecision.Controllers {
             deleteCourse.id = id;
             Admin.Remove(deleteCourse);
             Admin.SaveChanges();
-
-
 
             return RedirectToAction("Index", Admin);
         }

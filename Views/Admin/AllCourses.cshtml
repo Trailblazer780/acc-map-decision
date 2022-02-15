@@ -7,6 +7,9 @@
     <div class="container">
         <div>
             <div>
+                <div style="padding-bottom: 5px">
+                    <a href="Index"><input type="submit" class="btn btn-info" value="Back"/></a>
+                </div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -22,27 +25,27 @@
                             <td>@item.course_code</td>
                             <td>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin">
-                                        <input type="hidden" value="@item.id">
-                                        <input type="hidden" value="@item.course_code">
-                                        <input type="hidden" value="@item.course_name">
-                                        <input type="hidden" value="@item.course_description">
-                                        <input type="hidden" value="@item.course_rationale">
+                                    <form asp-controller="Admin" asp-action="ViewCourse">
+                                        <input type="hidden" name="id" value="@item.id">
+                                        <input type="hidden" name="code" value="@item.course_code">
+                                        <input type="hidden" name="name" value="@item.course_name">
+                                        <input type="hidden" name="description" value="@item.course_description">
+                                        <input type="hidden" name="rationale" value="@item.course_rationale">
                                         <input class="btn btn-info" type="Submit" value="View">
                                     </form>
                                 </span>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin">
-                                        <input type="hidden" value="@item.id">
-                                        <input type="hidden" value="@item.course_code">
-                                        <input type="hidden" value="@item.course_name">
-                                        <input type="hidden" value="@item.course_description">
-                                        <input type="hidden" value="@item.course_rationale">
+                                    <form asp-controller="Admin" asp-action="EditCourse">
+                                        <input type="hidden" name="id" value="@item.id">
+                                        <input type="hidden" name="code" value="@item.course_code">
+                                        <input type="hidden" name="name" value="@item.course_name">
+                                        <input type="hidden" name="description" value="@item.course_description">
+                                        <input type="hidden" name="rationale" value="@item.course_rationale">
                                         <input class="btn btn-info" type="Submit" value="Edit">
                                     </form>
                                 </span>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin" asp-action="Delete">
+                                    <form asp-controller="Admin" asp-action="DeleteCourse">
                                         <input type="hidden" name="id" value="@item.id">
                                         <input type="hidden" name="code" value="@item.course_code">
                                         <input type="hidden" name="name" value="@item.course_name">
