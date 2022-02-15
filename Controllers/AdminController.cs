@@ -90,7 +90,10 @@ namespace accmapdecision.Controllers {
             course.course_description = description;
             course.course_rationale = rationale;
 
-            return View("AllCourses", Admin);
+            Admin.Update(course);
+            Admin.SaveChanges();
+
+            return RedirectToAction("AllCourses", Admin);
         }
 
 
