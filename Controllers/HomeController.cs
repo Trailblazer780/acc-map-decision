@@ -11,6 +11,7 @@ namespace accmapdecision.Controllers {
 
         public IActionResult Index() {
             CSVModel csv = new CSVModel();
+            
             // csv.WriteCSV();
 
             return View();
