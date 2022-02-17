@@ -1,17 +1,23 @@
-﻿<div>
+﻿@model UserResponseManager
+
+<div>
     <span><h1 class="text-info text-center">ACC Map Decsion    <form asp-controller="Login" asp-action="Index" ><input class="btn btn-info" type="Submit" value="Login"></form></h1></span>
 
     <div class="container">
-        <h2 class="text-center">Are you thinking of taking ALP or ACC?</h2> 
+        <h2 class="text-center">@Model.currentQuestion.questionText</h2> 
 
         <div class="loginCenter">
-            <form>
-                <div class="buttonContainer text-center">
-                    <input class="firstButton btn btn-info" type="submit" value="ALP - Adult Learning Program">
-                </div>
-                <div class="buttonContainer text-center">
-                    <input class="firstButton btn btn-info" type="submit" value="ACC - Academic and Career Connections"> 
-                </div>
+            <form method="POST" asp-controller="Home" asp-action="Index">
+                <input type="hidden" asp-for="@Model.userResponseState" asp-value="@Model.userResponseState">
+                @* <input type="hidden" asp-for="@Model.currentQuestionState" asp-value="@Model.currentQuestionState"> *@
+                <input type="hidden" asp-for="@Model.isQuestionsPopulated" asp-value="@Model.isQuestionsPopulated">
+                @* <input type="number" name="currentQuestionID" asp-for="@Model.currentQuestionID" asp-value="@Model.currentQuestionID"> *@
+                <input type="hidden" name="currentQuestionID" value="@Model.currentQuestionID">
+                @foreach (var option in Model.currentQuestion.optionsList){
+                    <div class="buttonContainer text-center">
+                        <button name="selectedOptionId" class="firstButton btn btn-info" type="submit" value="@option.optionID">@option.optionText</button>
+                    </div>
+                }
             </form>
         </div>
         
