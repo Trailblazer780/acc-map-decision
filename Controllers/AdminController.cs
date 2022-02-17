@@ -59,24 +59,24 @@ namespace accmapdecision.Controllers {
         }
 
         [HttpPost]
-        public IActionResult EditCourse(int id, string code, string name, string description, string rationale) {
+        public IActionResult EditCourse(Course course, int id, string code, string name, string description, string rationale) {
             // construction of the model
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
-            Course course = new Course();
+            // Course course = new Course();
             course.id = id;
             course.course_code = code;
             course.course_name = name;
             course.course_description = description;
             course.course_rationale = rationale;
 
-            return View("EditCourse", Admin);
+            return View("EditCourse", course);
         }
         [HttpPost]
-        public IActionResult EditCourseSubmit(int id, string code, string name, string description, string rationale) {
+        public IActionResult EditCourseSubmit(Course course, int id, string code, string name, string description, string rationale) {
             // construction of the model
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
@@ -84,7 +84,7 @@ namespace accmapdecision.Controllers {
                 return RedirectToAction("Index", "Home");
             }
 
-            Course course = new Course();
+            // Course course = new Course();
             course.id = id;
             course.course_code = code;
             course.course_name = name;
