@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using accmapdecision.Models;
 using Microsoft.AspNetCore.Http;
 
+
 namespace accmapdecision.Controllers {
 
     public class AdminController : Controller {
@@ -72,9 +73,9 @@ namespace accmapdecision.Controllers {
             course.course_description = description;
             course.course_rationale = rationale;
 
-            return View("EditCourse", course);
+            return View("EditCourse", Admin);
         }
-
+        [HttpPost]
         public IActionResult EditCourseSubmit(int id, string code, string name, string description, string rationale) {
             // construction of the model
             Admin = new AdminModel(HttpContext);
@@ -90,10 +91,15 @@ namespace accmapdecision.Controllers {
             course.course_description = description;
             course.course_rationale = rationale;
 
-            Admin.Update(course);
-            Admin.SaveChanges();
-
-            return RedirectToAction("AllCourses", Admin);
+            if(ModelState.IsValid) {
+                Admin.Update(course);
+                Admin.SaveChanges();
+                return RedirectToAction("AllCourses", Admin);
+            } 
+            else{
+                return View("EditCourse", course);
+            }
+            // return RedirectToAction("AllCourses", Admin);
         }
 
 
