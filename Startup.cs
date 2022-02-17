@@ -32,6 +32,7 @@ namespace accmapdecision
                 options.IdleTimeout = TimeSpan.FromSeconds(1200);
                 options.Cookie.HttpOnly = true;
             });
+            services.AddDbContext<accmapdecision.Models.UserResponseManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
