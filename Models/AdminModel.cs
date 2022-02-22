@@ -19,6 +19,7 @@ namespace accmapdecision.Models {
 
         private DbSet<Course> tblCourse {get; set;}
         private DbSet<Semester> tblSemester {get; set;}
+        private DbSet<CourseOffered> tblCourse_semester {get; set;}
 
         public List<Course> course {
             get {
@@ -29,6 +30,12 @@ namespace accmapdecision.Models {
         public List<Semester> semester {
             get {
                 return tblSemester.OrderBy(i => i.semester_id).ToList();
+            }
+        }
+
+        public List<CourseOffered> course_semester {
+            get {
+                return tblCourse_semester.OrderBy(i => i.course_id).ToList();
             }
         }
 
