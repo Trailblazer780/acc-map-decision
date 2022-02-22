@@ -17,8 +17,8 @@ namespace accmapdecision.Controllers {
         }
 
         public IActionResult IndexCSV() {
-            CSVModel csv = new CSVModel();
-            // csv.WriteCSV();
+            // CSVModel csv = new CSVModel();
+            // csv.WriteCSV(); 
 
             return View();
         }
@@ -28,8 +28,9 @@ namespace accmapdecision.Controllers {
             
             if(!userResponseManager.isQuestionsPopulated){
                 userResponseManager.populateUserResponseModel();
-                userResponseManager.currentQuestionID = 1;
+                userResponseManager.currentQuestionID = 1; 
             }
+
 
             if(selectedOptionId == 0) {     // First request
 
@@ -56,6 +57,12 @@ namespace accmapdecision.Controllers {
                 userResponseManager.currentQuestion = nextQuestion;
             }
             
+            // userResponse only includes the last question answered
+            if(currentQuestionID==2) { // supposed to be 3 but it throws an error
+                CSVModel csv = new CSVModel();
+                csv.WriteCSV(userResponseManager.userResponse);
+            }
+
             return View(userResponseManager);
         }
 
