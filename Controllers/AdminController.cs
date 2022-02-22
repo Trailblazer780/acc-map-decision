@@ -40,7 +40,7 @@ namespace accmapdecision.Controllers {
             return View("AllSemesters", Admin);
         }
 
-
+        // --------------------------------------------------- Course ---------------------------------------------------
         [HttpPost]
         public IActionResult ViewCourse(int id, string code, string name, string description, string rationale) {
             // construction of the model
@@ -58,39 +58,34 @@ namespace accmapdecision.Controllers {
             return View("ViewCourse", course);
         }
 
+
+        // int id, string code, string name, string description, string rationale
         [HttpPost]
-        public IActionResult EditCourse(Course course, int id, string code, string name, string description, string rationale) {
+        public IActionResult EditCourse(int id, string code, string name, string description, string rationale) {
             // construction of the model
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
-            // Course course = new Course();
+            Course course = new Course();
             course.id = id;
             course.course_code = code;
             course.course_name = name;
             course.course_description = description;
             course.course_rationale = rationale;
 
-            return View("EditCourse", course);
+            return View(course);
         }
+        // int id, string code, string name, string description, string rationale
         [HttpPost]
-        public IActionResult EditCourseSubmit(Course course, int id, string code, string name, string description, string rationale) {
+        public IActionResult EditCourseSubmit(Course course) {
             // construction of the model
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
-
-            // Course course = new Course();
-            course.id = id;
-            course.course_code = code;
-            course.course_name = name;
-            course.course_description = description;
-            course.course_rationale = rationale;
-
             if(ModelState.IsValid) {
                 Admin.Update(course);
                 Admin.SaveChanges();
@@ -101,7 +96,6 @@ namespace accmapdecision.Controllers {
             }
             // return RedirectToAction("AllCourses", Admin);
         }
-
 
         [HttpPost]
         public IActionResult DeleteCourse(int id, string code, string name, string description, string rationale) {
@@ -133,8 +127,85 @@ namespace accmapdecision.Controllers {
             Admin.Remove(deleteCourse);
             Admin.SaveChanges();
 
-            return RedirectToAction("Index", Admin);
+            return RedirectToAction("AllCourses");
         }
+
+        // --------------------------------------------------- Semester ---------------------------------------------------
+        [HttpPost]
+        public IActionResult ViewSemester(int id, string code) {
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            // construction of the model
+            Admin = new AdminModel(HttpContext);
+            Semester semester = new Semester();
+            semester.semester_id = id;
+            semester.semester_code = code;
+            return View("ViewSemester", semester);
+        }
+
+        [HttpPost]
+        public IActionResult EditSemester(int id, string code){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Semester semester = new Semester();
+            Console.WriteLine("id: " + id);
+            semester.semester_id = id;
+            semester.semester_code = code;
+            return View(semester);
+        }
+
+        [HttpPost]
+        public IActionResult EditSemesterSubmit(Semester semester){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Console.WriteLine("id: " + semester.semester_id);
+            if(ModelState.IsValid) {
+                Admin.Update(semester);
+                Admin.SaveChanges();
+                return RedirectToAction("AllSemesters", Admin);
+            } 
+            else{
+                return View("EditSemester", semester);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteSemester(int id, string code) {
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Semester semester = new Semester();
+            semester.semester_id = id;
+            semester.semester_code = code;
+
+            return View("DeleteSemester", semester);
+        }
+        
+        [HttpPost]
+        public IActionResult DeleteSemesterSubmit(int id, string code) {
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Semester semester = new Semester();
+            semester.semester_id = id;
+            semester.semester_code = code;
+            Admin.Remove(semester);
+            Admin.SaveChanges();
+            return RedirectToAction("AllSemesters");
+        }
+
 
         [HttpPost]
         public IActionResult Logout() {
