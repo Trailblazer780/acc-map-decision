@@ -31,12 +31,12 @@ namespace accmapdecision.Models {
             get {
                 // return tblSemester.OrderBy(i => i.semester_id).ToList();
                 var player =  tblSemester.OrderBy(i => i.semester_id).Include(one => one.courses).ToList();
-                Console.WriteLine("Semester: " + player.Count);
+                // Console.WriteLine("Semester: " + player.Count);
                 var courses = player[0].courses.ToList();
                 // courses.ForEach(i => Console.WriteLine(i.course_code));
 
                 for(int i = 0; i < courses.Count; i++) {
-                    Console.WriteLine("Course id: " + courses[i].course_code);
+                    // Console.WriteLine("Course id: " + courses[i].course_code);
                 }
                 return player;
             }
@@ -51,11 +51,15 @@ namespace accmapdecision.Models {
         public Semester getSemester(int id) {
             return tblSemester.Where(i => i.semester_id == id).Include(one => one.courses).FirstOrDefault();
         }
-        
+
+        public Course getCourse(int id){
+            return tblCourse.Where(i => i.id == id).FirstOrDefault();
+        }
+
         public List<Course> getAllCourses() {
             return tblCourse.OrderBy(i => i.id).ToList();
         }
-        
+
         public void Logout() {
             // logout the user by clearing the session
             context.Session.Clear();

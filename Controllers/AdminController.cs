@@ -2,6 +2,9 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using accmapdecision.Models;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+
 
 
 namespace accmapdecision.Controllers {
@@ -151,25 +154,39 @@ namespace accmapdecision.Controllers {
                 return RedirectToAction("Index", "Home");
             }
             Admin = new AdminModel(HttpContext);
-            Semester semester = new Semester();
-
+            Semester semester = Admin.getSemester(id);
             ViewBag.allCourses = Admin.getAllCourses();
-
-            Console.WriteLine("id: " + id);
+            // Console.WriteLine("id: " + id);
             semester.semester_id = id;
             semester.semester_code = code;
             return View(semester);
         }
 
         [HttpPost]
-        public IActionResult EditSemesterSubmit(Semester semester){
+        public IActionResult EditSemesterSubmit(Semester semester, String[] courses){
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
             Admin = new AdminModel(HttpContext);
-            Console.WriteLine("id: " + semester.semester_id);
+            List<Course> selectedCourses = new List<Course>();
+
+            for(int i = 0; i < courses.Length; i++){
+                Course course = Admin.getCourse(Int32.Parse(courses[i]));
+                course.id = Int32.Parse(courses[i]);
+                Admin.Attach(course);
+                selectedCourses.Add(course);
+            }
+
+            // Console.WriteLine("course count: " + selectedCourses.Count);
+
+
+            
+            // Console.WriteLine("id: " + semester.semester_id);
             if(ModelState.IsValid) {
+                // int noOfRowUpdated = Admin.Database.ExecuteSqlCommand("Update student set studentname ='changed student by command' where studentid=1");
+                // Admin.Database.
+                // semester.courses = selectedCourses;
                 Admin.Update(semester);
                 Admin.SaveChanges();
                 return RedirectToAction("AllSemesters", Admin);

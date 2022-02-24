@@ -18,9 +18,11 @@
             <hr>
             <div><strong>Courses Offered in @Model.semester_code</strong></div>
             <ul class="list-group" style="padding-top: 5px">
-                @foreach (var item in Model.courses)
+                @foreach (var item in ViewBag.allCourses)
                 {
-                    <li class="list-group-item">@item.course_code</li>
+                    <li class="list-group-item">
+                        <input type="checkbox" asp-for-checkbox="true" name="courses[]" value="@item.id" checked="@(Model.courses.Contains(item)  ? true : false)" /> @item.course_code | @item.course_name
+                    </li>
                 }
             </ul>
             <hr>
