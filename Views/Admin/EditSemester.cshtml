@@ -16,6 +16,14 @@
                 <span asp-validation-for="@Model.semester_code" class="text-danger"></span>
             </div>
             <hr>
+            <div><strong>Courses Offered in @Model.semester_code</strong></div>
+            <ul class="list-group" style="padding-top: 5px">
+                @foreach (var item in Model.courses)
+                {
+                    <li class="list-group-item">@item.course_code</li>
+                }
+            </ul>
+            <hr>
             <div class="centerDelete form-group">
                 <span><button class="btn btn-danger" type="submit">Edit</button></span>
                 <div style="padding-left: 5px;">

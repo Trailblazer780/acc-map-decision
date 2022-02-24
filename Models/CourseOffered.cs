@@ -1,8 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace accmapdecision.Models {
-    // category class to use in the database
+    
+    [Table("tblCourse_semester")]
     public class CourseOffered {
         [Key]
         [Required]
@@ -10,6 +12,9 @@ namespace accmapdecision.Models {
         public int course_id {get; set;}
         [Required]
         [Display(Name="Semester")]
-        public string semester_id {get; set;}
+        public int semester_id {get; set;}
+
+        public Course course {get; set;}
+        public Semester semester {get; set;}
     }
 }

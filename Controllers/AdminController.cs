@@ -139,9 +139,8 @@ namespace accmapdecision.Controllers {
             }
             // construction of the model
             Admin = new AdminModel(HttpContext);
-            Semester semester = new Semester();
-            semester.semester_id = id;
-            semester.semester_code = code;
+            Semester semester = Admin.getSemester(id);
+
             return View("ViewSemester", semester);
         }
 
@@ -153,6 +152,9 @@ namespace accmapdecision.Controllers {
             }
             Admin = new AdminModel(HttpContext);
             Semester semester = new Semester();
+
+            ViewBag.allCourses = Admin.getAllCourses();
+
             Console.WriteLine("id: " + id);
             semester.semester_id = id;
             semester.semester_code = code;
