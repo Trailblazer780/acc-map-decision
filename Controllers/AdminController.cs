@@ -172,9 +172,6 @@ namespace accmapdecision.Controllers {
             Admin = new AdminModel(HttpContext);
             List<Course> selectedCourses = new List<Course>();
 
-            // Admin.course_semester.RemoveAll(x => x.semester_id == semester.semester_id);
-            // Admin.SaveChanges();
-
             for(int i = 0; i < courses.Length; i++){
                 Course course = Admin.getCourse(Int32.Parse(courses[i]));
                 course.id = Int32.Parse(courses[i]);
@@ -182,11 +179,7 @@ namespace accmapdecision.Controllers {
                 selectedCourses.Add(course);
             }
 
-            // Admin.course_semester.RemoveAll(x => x.semester_id == semester.semester_id);
-
             // Console.WriteLine("course count: " + selectedCourses.Count);
-
-
             
             // Console.WriteLine("id: " + semester.semester_id);
             if(ModelState.IsValid) {
