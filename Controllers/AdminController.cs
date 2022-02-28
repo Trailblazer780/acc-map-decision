@@ -190,7 +190,7 @@ namespace accmapdecision.Controllers {
             
             // Console.WriteLine("id: " + semester.semester_id);
             if(ModelState.IsValid) {
-                // int noOfRowUpdated = Admin.Database.ExecuteSqlCommand("Update student set studentname ='changed student by command' where studentid=1");
+                Admin.Database.ExecuteSqlRaw("DELETE FROM tblCourse_semester WHERE semester_id = " + semester.semester_id);
                 // Admin.Database.
                 semester.courses = selectedCourses;
                 Admin.Update(semester);
