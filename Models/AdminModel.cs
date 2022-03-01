@@ -56,6 +56,10 @@ namespace accmapdecision.Models {
             return tblCourse.Where(i => i.id == id).FirstOrDefault();
         }
 
+        public Course getCourseRequisites(int id){
+            return tblCourse.Where(i => i.id == id).Include(one => one.requisites).FirstOrDefault();
+        }
+
         public List<Course> getAllCourses() {
             return tblCourse.OrderBy(i => i.id).ToList();
         }
@@ -70,12 +74,36 @@ namespace accmapdecision.Models {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
+            // Semester
             modelBuilder.Entity<Semester>().HasMany(p => p.courses).WithMany(p => p.semesters).UsingEntity<CourseOffered>(
             j => j.HasOne(pt => pt.course).WithMany(t => t.courseOffered).HasForeignKey(pt => pt.course_id),
             j => j.HasOne(pt => pt.semester).WithMany(p => p.courseOffered).HasForeignKey(pt => pt.semester_id)
             );
-
             modelBuilder.Entity<CourseOffered>().HasKey(bc => new { bc.semester_id, bc.course_id });
+
+            // Requisites
+            // modelBuilder.Entity<Course>().HasMany(p => p.requisites).UsingEntity<Requisite>(
+            // j => j.HasOne(pt => pt.course).WithMany(t => t.courseOffered).HasForeignKey(pt => pt.course_id),
+            // j => j.HasOne(pt => pt.semester).WithMany(p => p.courseOffered).HasForeignKey(pt => pt.semester_id)
+            // );
+
+            // modelBuilder.Entity<Requisite>().HasOne<Course>(s => s.course).WithMany(g => g.requisites).HasForeignKey(s => s.course_id);
+            // modelBuilder.Entity<Requisite>().HasOne<Course>(s => s.course).WithMany(g => g.requisites);
+
+            // modelBuilder.Entity<Requisite>().HasOne<Course>(s => s.requiredCourse).WithMany(g => g.requisites);
+
+            // modelBuilder.Entity<Course>().HasMany<Requisite>(s => s.requisites).WithOne(g => g.requiredCourse).HasForeignKey(s => s.required_course_id);
+
+            // modelBuilder.Entity<Course>().HasMany<Requisite>(s => s.requisites).WithOne(g => g.course).HasForeignKey(s => s.course_id);
+
+            // modelBuilder.Entity<Requisite>().HasOne<Course>(s => s.requiredCourse).WithMany(g => g.requisites);
+
+
+            // modelBuilder.Entity<Course>().HasMany(p => p.requisites).WithOne(p => p.course).HasForeignKey(s => s.course_id)(
+            // j => j.HasOne(pt => pt.course).WithMany(t => t.requisites).HasForeignKey(pt => pt.course_id),
+            // j => j.HasOne(pt => pt.requiredCourse).WithMany(p => p.requisites).HasForeignKey(pt => pt.required_course_id)
+            // );
+
 
 
         }

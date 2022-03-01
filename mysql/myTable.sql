@@ -142,15 +142,26 @@ INSERT INTO `tblCourse_semester` VALUES (1,1),
 (15,6);
 
 CREATE TABLE `tblRequisite` (
+  `requisite_id` int NOT NULL AUTO_INCREMENT,
   `course_id` int NOT NULL,
   `required_course_id` int NOT NULL,
   `type` int DEFAULT '0' COMMENT '0 - Prerequisite\n1 - Corequisite',
   `condition` int DEFAULT '2' COMMENT '0 - AND\n1 - OR\n2 - None',
-  PRIMARY KEY (`course_id`,`required_course_id`),
-  KEY `fk_course_2_idx` (`required_course_id`),
+  PRIMARY KEY (`requisite_id`),
+  -- KEY `fk_course_2_idx` (`required_course_id`),
   CONSTRAINT `fk_course` FOREIGN KEY (`course_id`) REFERENCES `tblCourse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_course_2` FOREIGN KEY (`required_course_id`) REFERENCES `tblCourse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-INSERT INTO `tblRequisite` VALUES (2,1,0,2),(4,3,0,2),(6,5,0,1),(6,7,0,1),(8,7,0,2),(10,9,0,2),(12,8,0,2),(13,12,0,2),(15,14,0,2);
+INSERT INTO `tblRequisite` VALUES (1,2,1,0,2),(2,4,3,0,2),(3,6,5,0,1),(4,6,7,0,1),(5,8,7,0,2),(6,10,9,0,2),(7,12,8,0,2),(8,13,12,0,2),(9,15,14,0,2);
 
+-- CREATE TABLE `tblRequisite` (
+--   `course_id` int NOT NULL,
+--   `required_course_id` int NOT NULL,
+--   `type` int DEFAULT '0' COMMENT '0 - Prerequisite\n1 - Corequisite',
+--   `condition` int DEFAULT '2' COMMENT '0 - AND\n1 - OR\n2 - None',
+--   -- PRIMARY KEY (`course_id`,`required_course_id`),
+--   KEY `fk_course_2_idx` (`required_course_id`),
+--   CONSTRAINT `fk_course` FOREIGN KEY (`course_id`) REFERENCES `tblCourse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+--   CONSTRAINT `fk_course_2` FOREIGN KEY (`required_course_id`) REFERENCES `tblCourse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+-- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
