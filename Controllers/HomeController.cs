@@ -57,11 +57,11 @@ namespace accmapdecision.Controllers {
                 userResponseManager.currentQuestion = nextQuestion;
             }
             
-            // userResponse only includes the last question answered
-            if(currentQuestionID==2) { // supposed to be 3 but it throws an error
-                CSVModel csv = new CSVModel();
-                csv.WriteCSV(userResponseManager.userResponse);
-            }
+            // if(currentQuestionID==2) { // supposed to be 3 but it throws an error
+            //     CSVModel csv = new CSVModel();
+            //     csv.WriteCSV(userResponseManager.userResponse);
+            // Once we fix the user response error we'll add an option to export the data after answering questions
+            // }
 
             return View(userResponseManager);
         }

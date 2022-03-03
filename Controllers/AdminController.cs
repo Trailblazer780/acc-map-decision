@@ -245,5 +245,16 @@ namespace accmapdecision.Controllers {
             // return the view
             return RedirectToAction("Index", "Home");
         }
+        [HttpPost]
+        public IActionResult Export() {
+            Console.WriteLine("Exporting CSV..");
+            Admin = new AdminModel(HttpContext);
+            var courses=Admin.getAllCourses();
+            CSVModel csv = new CSVModel();
+            csv.WriteCSV(courses);
+
+            // return the view
+            return RedirectToAction("AllSemesters", Admin);
+        }
     }
 }
