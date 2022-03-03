@@ -31,6 +31,19 @@
                 <textarea class="form-control" asp-for="@Model.course_rationale" rows="6" type="textarea">@Model.course_rationale</textarea></div>
                 <span asp-validation-for="@Model.course_rationale" class="text-danger"></span>
             <hr>
+            <div class="form-group">
+                <label for="description"><strong>Course Prerequisites:</strong></label> 
+                <ul class="list-group" style="padding-top: 5px">
+                    @foreach (var item in ViewBag.allCourses)
+                    {
+                        <li class="list-group-item">
+                            <input type="checkbox" asp-for-checkbox="true" name="courses[]" value="@item.id"  checked="@(Model.requisites.Where(x => x.requiredCourse.id == item.id).Count() > 0 ? true : false)"/> @item.course_code | @item.course_name
+                        </li>
+                    }
+                </ul>
+            </div>
+
+
             <div class="centerDelete form-group">
                 <span><button class="btn btn-danger" type="submit">Edit</button></span>
                 <div style="padding-left: 5px;">

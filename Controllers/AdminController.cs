@@ -83,14 +83,16 @@ namespace accmapdecision.Controllers {
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
-            Course course = new Course();
-            course.id = id;
-            course.course_code = code;
-            course.course_name = name;
-            course.course_description = description;
-            course.course_rationale = rationale;
+            // Course course = new Course();
+            Course courseReq = Admin.getCourseRequisites(id);
+            ViewBag.allCourses = Admin.getAllCourses();
+            // course.id = id;
+            // course.course_code = code;
+            // course.course_name = name;
+            // course.course_description = description;
+            // course.course_rationale = rationale;
 
-            return View(course);
+            return View("EditCourse", courseReq);
         }
         // int id, string code, string name, string description, string rationale
         [HttpPost]
