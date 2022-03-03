@@ -18,7 +18,8 @@
         <ul class="list-group" style="padding-top: 5px">
             @foreach (var item in Model.requisites)
             {
-                <li class="list-group-item">@item.course.course_code</li>
+                @* <li class="list-group-item">@item.condition</li> *@
+                <li class="list-group-item">@item.requiredCourse.course_code @item.condition @item.type</li>
             }
         </ul>
         <div class="text-center">
