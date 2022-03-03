@@ -27,7 +27,8 @@ namespace accmapdecision.Models {
         public string course_rationale {get; set;}
         public ICollection<Semester> semesters {get; set;}
         public List <CourseOffered> courseOffered {get; set;}
-        // public List <Requisite> requisites {get; set;}
-        public ICollection<Requisite> requisites {get; set;}
+
+        public List<Requisite> requisites {get; set;}
+        public List<Requisite> requisites2 {get; set;}      // Not used 
     }
 }
