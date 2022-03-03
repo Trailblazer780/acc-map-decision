@@ -1,8 +1,15 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 namespace accmapdecision.Models {
     // category class to use in the database
+    [Table("tblCourse")]
     public class Course {
         [Key]
         public int id {get; set;}
@@ -18,5 +25,9 @@ namespace accmapdecision.Models {
         [Required]
         [Display(Name="Course Rationale")]
         public string course_rationale {get; set;}
+        public ICollection<Semester> semesters {get; set;}
+        public List <CourseOffered> courseOffered {get; set;}
+        // public List <Requisite> requisites {get; set;}
+        public ICollection<Requisite> requisites {get; set;}
     }
 }

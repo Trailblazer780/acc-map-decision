@@ -25,23 +25,23 @@
                             <td>@item.semester_code</td>
                             <td>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin">
-                                        <input type="hidden" value="@item.semester_id">
-                                        <input type="hidden" value="@item.semester_code">
+                                    <form asp-controller="Admin" asp-action="ViewSemester">
+                                        <input type="hidden" name="id" value="@item.semester_id">
+                                        <input type="hidden" name="code" value="@item.semester_code">
                                         <input class="btn btn-info" type="Submit" value="View">
                                     </form>
                                 </span>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin">
-                                        <input type="hidden" value="@item.semester_id">
-                                        <input type="hidden" value="@item.semester_code">
+                                    <form asp-controller="Admin" asp-action="EditSemester">
+                                        <input type="hidden" name="id" value="@item.semester_id">
+                                        <input type="hidden" name="code" value="@item.semester_code">
                                         <input class="btn btn-info" type="Submit" value="Edit">
                                     </form>
                                 </span>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin" asp-action="Delete">
-                                        <input type="hidden" value="@item.semester_id">
-                                        <input type="hidden" value="@item.semester_code">
+                                    <form asp-controller="Admin" asp-action="DeleteSemester">
+                                        <input type="hidden" name="id" value="@item.semester_id">
+                                        <input type="hidden" name="code" value="@item.semester_code">
                                         <input class="btn btn-danger" type="Submit" value="Delete">
                                     </form>
                                 </span>

@@ -13,8 +13,16 @@
         <hr>
         <div><strong>Course rationale:</strong> @Model.course_rationale</div>
         <hr>
+        <div><strong>Prerequisites</strong></div> 
+        <div>
+        <ul class="list-group" style="padding-top: 5px">
+            @foreach (var item in Model.requisites)
+            {
+                <li class="list-group-item">@item.course.course_code</li>
+            }
+        </ul>
         <div class="text-center">
-            <a href="AllCourses"><input type="submit" class="btn btn-info" value="Back to View Course"/></a>
+            <a href="AllCourses"><input type="submit" class="btn btn-info" value="Back to View Courses"/></a>
         </div>
     </div>
 </div>

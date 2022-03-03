@@ -8,27 +8,27 @@
         <div stlye="padding-bottom: 10px">
             <h1 class="text-center text-info">Editing @Model.course_name</h1>
         </div>
-        <form method="post" style="width: 100%;" asp-controller="Admin" asp-action="EditCourseSubmit">
+        <form style="width: 100%;" asp-controller="Admin" asp-action="EditCourseSubmit">
             <input type="hidden" name="id" asp-for="@Model.id">
             <div class="form-group" style="max-width: 300px !important">
                 <label for="code"><strong>Course Code:</strong></label>
-                <input class="form-control" type="text" asp-for="@Model.course_code" name="code">
+                <input class="form-control" type="text" asp-for="@Model.course_code">
                 <span asp-validation-for="@Model.course_code" class="text-danger"></span>
             </div>
             <hr>
             <div class="form-group" style="max-width: 300px !important">
                 <label for="name"><strong>Course Name:</strong></label>
-                <input stlye="max-width: 300px !important" asp-for="@Model.course_name" class="form-control" type="text" name="name" value="@Model.course_name"></div>
+                <input stlye="max-width: 300px !important" asp-for="@Model.course_name" class="form-control" type="text"></div>
                 <span asp-validation-for="@Model.course_name" class="text-danger"></span>
             <hr>
             <div class="form-group">
                 <label for="description"><strong>Course Description:</strong></label> 
-                <textarea class="form-control" asp-for="@Model.course_description" rows="6" name="description">@Model.course_description</textarea></div>
+                <textarea class="form-control" asp-for="@Model.course_description" rows="6">@Model.course_description</textarea></div>
                 <span asp-validation-for="@Model.course_description" class="text-danger"></span>
             <hr>
             <div class="form-group">
                 <label for="rationale"><strong>Course rationale:</strong></label> 
-                <textarea class="form-control" asp-for="@Model.course_rationale" rows="6" type="textarea" name="rationale">@Model.course_rationale</textarea></div>
+                <textarea class="form-control" asp-for="@Model.course_rationale" rows="6" type="textarea">@Model.course_rationale</textarea></div>
                 <span asp-validation-for="@Model.course_rationale" class="text-danger"></span>
             <hr>
             <div class="centerDelete form-group">

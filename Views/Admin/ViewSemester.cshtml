@@ -1,0 +1,24 @@
+@model Semester;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - View Semester  <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+    <div class="container">
+        <h1 class="text-center text-info">Viewing Semester info for: @Model.semester_code</h1>
+        <div><strong>Semester ID:</strong> @Model.semester_id</div>
+        <hr>
+        <div><strong>Semester Code:</strong> @Model.semester_code</div>
+        <hr>
+        <div><strong>Courses Offered in @Model.semester_code</strong></div>
+        <ul class="list-group" style="padding-top: 5px">
+            @foreach (var item in Model.courses)
+            {
+                <li class="list-group-item">@item.course_code</li>
+            }
+        </ul>
+        <hr>
+        <div class="text-center">
+            <a href="AllSemesters"><input type="submit" class="btn btn-info" value="Back to View Semesters"/></a>
+        </div>
+    </div>
+</div>
