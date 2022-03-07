@@ -19,7 +19,7 @@
             @if(Model.requisites.Count > 0){
                 @foreach (var item in Model.requisites)
                 {
-                    <li class="list-group-item">@item.requiredCourse.course_code | @item.requiredCourse.course_name</li>
+                    <li class="list-group-item">@item.requiredCourse.course_code - @item.requiredCourse.course_name</li>
                 }
             }
             @if(Model.requisites.Count == 0)

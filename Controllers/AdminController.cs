@@ -44,9 +44,19 @@ namespace accmapdecision.Controllers {
             return View("AllSemesters", Admin);
         }
 
+        [HttpPost]
+        public IActionResult AllQuestions(){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            return View("AllQuestions", Admin);
+        }
+
         // --------------------------------------------------- Course ---------------------------------------------------
         [HttpPost]
-        public IActionResult ViewCourse(int id, string code, string name, string description, string rationale) {
+        public IActionResult ViewCourse(int id) {
             // construction of the model
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
@@ -62,13 +72,6 @@ namespace accmapdecision.Controllers {
                Console.WriteLine(requisite.requiredCourse.course_code);
             }
 
-
-            // Course course = new Course();
-            // course.id = id;
-            // course.course_code = code;
-            // course.course_name = name;
-            // course.course_description = description;
-            // course.course_rationale = rationale;
             return View("ViewCourse", courseReq);
         }
 
@@ -86,24 +89,35 @@ namespace accmapdecision.Controllers {
             // Course course = new Course();
             Course courseReq = Admin.getCourseRequisites(id);
             ViewBag.allCourses = Admin.getAllCourses();
-            // course.id = id;
-            // course.course_code = code;
-            // course.course_name = name;
-            // course.course_description = description;
-            // course.course_rationale = rationale;
 
             return View("EditCourse", courseReq);
         }
         // int id, string code, string name, string description, string rationale
         [HttpPost]
-        public IActionResult EditCourseSubmit(Course course) {
+        public IActionResult EditCourseSubmit(Course course, string[] courses) {
             // construction of the model
             Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+
+            List<Requisite> selectedRequisites = new List<Requisite>();
+
+            for(int i = 0; i < courses.Length; i++){
+                Requisite courseReq = new Requisite();
+                courseReq.requiredCourse = Admin.getCourse(Int32.Parse(courses[i]));
+                courseReq.course = course;
+                courseReq.type = 0;
+                courseReq.condition = 1;
+                Admin.Attach(courseReq);
+                selectedRequisites.Add(courseReq);
+            }
+
             if(ModelState.IsValid) {
+                Admin.Database.ExecuteSqlRaw("DELETE FROM tblRequisite WHERE type = 0 AND course_id = " + course.id);
+                course.requisites = selectedRequisites;
+                // Admin.Database.
                 Admin.Update(course);
                 Admin.SaveChanges();
                 return RedirectToAction("AllCourses", Admin);
@@ -111,7 +125,6 @@ namespace accmapdecision.Controllers {
             else{
                 return View("EditCourse", course);
             }
-            // return RedirectToAction("AllCourses", Admin);
         }
 
         [HttpPost]
@@ -169,8 +182,7 @@ namespace accmapdecision.Controllers {
             }
             Admin = new AdminModel(HttpContext);
             Semester semester = Admin.getSemester(id);
-            ViewBag.allCourses = Admin.getAllCourses();
-            // Console.WriteLine("id: " + id);
+            ViewBag.allCourses = Admin.getAllCourses(); 
             semester.semester_id = id;
             semester.semester_code = code;
             return View(semester);
@@ -192,9 +204,6 @@ namespace accmapdecision.Controllers {
                 selectedCourses.Add(course);
             }
 
-            // Console.WriteLine("course count: " + selectedCourses.Count);
-            
-            // Console.WriteLine("id: " + semester.semester_id);
             if(ModelState.IsValid) {
                 Admin.Database.ExecuteSqlRaw("DELETE FROM tblCourse_semester WHERE semester_id = " + semester.semester_id);
                 // Admin.Database.
@@ -236,6 +245,10 @@ namespace accmapdecision.Controllers {
             Admin.SaveChanges();
             return RedirectToAction("AllSemesters");
         }
+
+        // --------------------------------------------------- Questions ---------------------------------------------------
+
+
 
 
         [HttpPost]
