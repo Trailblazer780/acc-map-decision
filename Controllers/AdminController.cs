@@ -16,31 +16,31 @@ namespace accmapdecision.Controllers {
 
         public IActionResult Index() {
             // construction of the model
-            Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+            Admin = new AdminModel(HttpContext);
             return View("Index", Admin);
         }
 
         public IActionResult AllCourses() {
             // construction of the model
-            Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+            Admin = new AdminModel(HttpContext);
             return View("AllCourses", Admin);
         }
 
         public IActionResult AllSemesters() {
             // construction of the model
-            Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+            Admin = new AdminModel(HttpContext);
             return View("AllSemesters", Admin);
         }
 
@@ -58,11 +58,11 @@ namespace accmapdecision.Controllers {
         [HttpPost]
         public IActionResult ViewCourse(int id) {
             // construction of the model
-            Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+            Admin = new AdminModel(HttpContext);
 
             Course courseReq = Admin.getCourseRequisites(id);
 
@@ -81,11 +81,11 @@ namespace accmapdecision.Controllers {
         [HttpPost]
         public IActionResult EditCourse(int id, string code, string name, string description, string rationale) {
             // construction of the model
-            Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+            Admin = new AdminModel(HttpContext);
             // Course course = new Course();
             Course courseReq = Admin.getCourseRequisites(id);
             ViewBag.allCourses = Admin.getAllCourses();
@@ -96,11 +96,11 @@ namespace accmapdecision.Controllers {
         [HttpPost]
         public IActionResult EditCourseSubmit(Course course, string[] courses) {
             // construction of the model
-            Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+            Admin = new AdminModel(HttpContext);
 
             List<Requisite> selectedRequisites = new List<Requisite>();
 
@@ -129,11 +129,12 @@ namespace accmapdecision.Controllers {
 
         [HttpPost]
         public IActionResult DeleteCourse(int id, string code, string name, string description, string rationale) {
-            Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+            Admin = new AdminModel(HttpContext);
+
             Course course = new Course();
             course.id = id;
             course.course_code = code;
@@ -145,11 +146,12 @@ namespace accmapdecision.Controllers {
 
         [HttpPost]
         public IActionResult DeleteCourseSubmit(int id){
-            Admin = new AdminModel(HttpContext);
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+            Admin = new AdminModel(HttpContext);
+            
             Console.WriteLine("Deleting course with id: " + id);
             
             Course deleteCourse = new Course();
