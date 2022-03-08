@@ -183,7 +183,7 @@ INSERT INTO `tblQuestion` VALUES (1,'Do I want ALP-AU or ACC?',NULL),(2,'Do I ne
 CREATE TABLE `tblOption` (
   `optionId` int NOT NULL AUTO_INCREMENT,
   `optionText` varchar(255) NOT NULL,
-  `question_id` int NOT NULL,
+  `questionId` int NOT NULL,
   `nextQuestionId` int DEFAULT NULL,
   PRIMARY KEY (`optionId`),
   KEY `fk_nextQuestionId_idx` (`nextQuestionId`),
