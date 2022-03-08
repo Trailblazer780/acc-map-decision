@@ -95,6 +95,27 @@ namespace accmapdecision.Models {
                         .HasForeignKey(ad => ad.required_course_id)
                         .OnDelete(DeleteBehavior.Restrict);
 
+            // Question - Option
+            modelBuilder.Entity<Option>()
+                        .HasOne<Question>(s => s.question)
+                        .WithMany(g => g.optionsList)
+                        .HasForeignKey(s => s.questionId);
+
+            modelBuilder.Entity<Option>()
+                        .HasOne<Question>(s => s.nextQuestion)
+                        .WithMany()
+                        .HasForeignKey(s => s.nextQuestionId);
+
+            
+            // Option - Course mapping
+            modelBuilder.Entity<OptionCourseMapping>().HasKey(oc => new { oc.course_id, oc.option_id });
+
+            modelBuilder.Entity<Option>().HasMany(p => p.courses).WithMany(p => p.options).UsingEntity<OptionCourseMapping>(
+                j => j.HasOne(pt => pt.course).WithMany(t => t.optionCourseMapping).HasForeignKey(pt => pt.course_id),
+                j => j.HasOne(pt => pt.option).WithMany(p => p.optionCourseMapping).HasForeignKey(pt => pt.option_id)
+            );
+
+
         }
     }
 }

@@ -5,6 +5,7 @@ using System.IO;
 using System.Globalization;
 using CsvHelper;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace accmapdecision.Controllers {
 
@@ -42,7 +43,7 @@ namespace accmapdecision.Controllers {
                 int currentQuestionIndex = userResponseManager.userResponse.questionsAndResponses.FindIndex(x => x.questionID == currentQuestionID);
 
                 // Fetch selected option object
-                Option optionSelected = currentQuestion.optionsList.Find(x => x.optionID == selectedOptionId);
+                Option optionSelected = currentQuestion.optionsList.First(x => x.optionID == selectedOptionId);
 
                 // Update current question object with selected option
                 currentQuestion.optionSelected = optionSelected;
