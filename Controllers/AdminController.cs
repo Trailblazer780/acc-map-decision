@@ -254,7 +254,7 @@ namespace accmapdecision.Controllers {
             csv.WriteCSV(courses);
 
             // return the view
-            return RedirectToAction("AllSemesters", Admin);
+            return RedirectToAction("AllCourses", Admin);
         }
     }
 }

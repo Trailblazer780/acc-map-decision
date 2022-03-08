@@ -13,13 +13,15 @@ namespace accmapdecision.Models {
         }
         // public void WriteCSV(UserResponse userResponse) {
         public void WriteCSV(List<Course> courses) {
-            var csvPath = Path.Combine(Environment.CurrentDirectory, $"courses-{DateTime.Now.ToFileTime()}.csv");
+
+            var csvPath = Path.Combine(Environment.CurrentDirectory , $"courses-{DateTime.Now.ToFileTime()}.csv");
             using (var streamWriter = new StreamWriter(csvPath)) {
             using (var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture)) { 
                 // var userResponse = UserResponseManager;
                 // csvWriter.WriteRecords(userResponse.questionsAndResponses);
                 csvWriter.WriteRecords(courses);
                 // Exports all the courses in allCourses for now
+                Console.WriteLine(csvPath); 
             }
         } Console.WriteLine("CSV File Created");
         }
