@@ -167,3 +167,53 @@ CREATE TABLE `tblRequisite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `tblRequisite` VALUES (2,1,0,2),(4,3,0,2),(6,5,0,1),(6,7,0,1),(8,7,0,2),(10,9,0,2),(12,8,0,2),(13,12,0,2),(15,14,0,2);
+
+
+CREATE TABLE `tblQuestion` (
+  `questionId` int NOT NULL AUTO_INCREMENT,
+  `questionText` varchar(1000) NOT NULL,
+  `questionDescription` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`questionId`),
+  KEY `pk_questionId_idx` (`questionId`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+
+INSERT INTO `tblQuestion` VALUES (1,'Do I want ALP-AU or ACC?',NULL),(2,'Do I need to take Math?',NULL),(3,'Do I require College Health Math?',NULL),(4,'Did I take Academic Math in grade 10?',NULL),(5,'Do I need Math Foundations (Math 1043)?',NULL),(6,'Did I finish High School with \"Math at Work\"?',NULL),(7,'Do I require Full Academic Math?',NULL),(8,'Do I require Pre-Calculus Math?',NULL),(9,'Do I have Grade 12 Academic Math (or equivalent)?',NULL),(10,'Do I need to take English?',NULL),(11,'Do I need to take Biology?',NULL),(12,'Do I need to take Chemistry?',NULL),(13,'Do I need to take Physics?',NULL),(14,'Do I need Physics 1046, or do I need 1046 and 1047?',NULL),(15,'What is my highest level of Math?',NULL);
+
+
+CREATE TABLE `tblOption` (
+  `optionId` int NOT NULL AUTO_INCREMENT,
+  `optionText` varchar(255) NOT NULL,
+  `nextQuestionId` int DEFAULT NULL,
+  PRIMARY KEY (`optionId`),
+  KEY `fk_nextQuestionId_idx` (`nextQuestionId`),
+  CONSTRAINT `fk_nextQuestionId` FOREIGN KEY (`nextQuestionId`) REFERENCES `tblQuestion` (`questionId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `tblOption` VALUES (11,'ALP - Adult Learning Program',NULL),(12,'ACC - Academic and Career Connections',2),(13,'Yes',3),(14,'No',10),(15,'Yes',4),(16,'No',7),(17,'Yes',6),(18,'No',5),(19,'Yes',10),(20,'No',10),(21,'Yes',5),(22,'No',NULL),(23,'Yes',4),(24,'No',8),(25,'Yes',9),(26,'No',NULL),(27,'Yes',10),(28,'No',NULL),(29,'Yes',11),(30,'No',11),(31,'Yes',12),(32,'No',12),(33,'Yes',13),(34,'No',13),(35,'Yes',14),(36,'No',NULL),(37,'Yes',NULL),(38,'No',NULL);
+
+
+CREATE TABLE `tblOptionCourse` (
+  `optionId` int NOT NULL,
+  `courseId` int NOT NULL,
+  PRIMARY KEY (`optionId`,`courseId`),
+  KEY `courseId_idx` (`courseId`),
+  CONSTRAINT `courseId` FOREIGN KEY (`courseId`) REFERENCES `tblcourse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `optionId` FOREIGN KEY (`optionId`) REFERENCES `tblOption` (`optionId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `tblOptionCourse` VALUES (31,1),(31,2),(33,3),(33,4),(15,5),(15,6),(23,7),(23,8),(35,9),(37,10),(19,11),(25,12),(25,13),(29,14),(29,15);
+
+
+CREATE TABLE `tblQuestionOption` (
+  `questionId` int NOT NULL,
+  `optionId` int NOT NULL,
+  PRIMARY KEY (`questionId`,`optionId`),
+  KEY `fk_optionId_idx` (`optionId`),
+  CONSTRAINT `fk_optionId` FOREIGN KEY (`optionId`) REFERENCES `tblOption` (`optionId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_questionId` FOREIGN KEY (`questionId`) REFERENCES `tblQuestion` (`questionId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `tblQuestionOption` VALUES (1,11),(1,12),(2,13),(2,14),(3,15),(3,16),(4,17),(4,18),(5,19),(5,20),(6,21),(6,22),(7,23),(7,24),(8,25),(8,26),(9,27),(9,28),(10,29),(10,30),(11,31),(11,32),(12,33),(12,34),(13,35),(13,36),(14,37),(14,38);
+
