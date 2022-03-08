@@ -183,6 +183,7 @@ INSERT INTO `tblQuestion` VALUES (1,'Do I want ALP-AU or ACC?',NULL),(2,'Do I ne
 CREATE TABLE `tblOption` (
   `optionId` int NOT NULL AUTO_INCREMENT,
   `optionText` varchar(255) NOT NULL,
+  `question_id` int NOT NULL,
   `nextQuestionId` int DEFAULT NULL,
   PRIMARY KEY (`optionId`),
   KEY `fk_nextQuestionId_idx` (`nextQuestionId`),
@@ -190,7 +191,7 @@ CREATE TABLE `tblOption` (
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 
-INSERT INTO `tblOption` VALUES (11,'ALP - Adult Learning Program',NULL),(12,'ACC - Academic and Career Connections',2),(13,'Yes',3),(14,'No',10),(15,'Yes',4),(16,'No',7),(17,'Yes',6),(18,'No',5),(19,'Yes',10),(20,'No',10),(21,'Yes',5),(22,'No',NULL),(23,'Yes',4),(24,'No',8),(25,'Yes',9),(26,'No',NULL),(27,'Yes',10),(28,'No',NULL),(29,'Yes',11),(30,'No',11),(31,'Yes',12),(32,'No',12),(33,'Yes',13),(34,'No',13),(35,'Yes',14),(36,'No',NULL),(37,'Yes',NULL),(38,'No',NULL);
+INSERT INTO `tblOption` VALUES (11,'ALP - Adult Learning Program', 1,NULL),(12,'ACC - Academic and Career Connections',1,2),(13,'Yes',2,3),(14,'No',2,10),(15,'Yes',3,4),(16,'No',3,7),(17,'Yes',4,6),(18,'No',4,5),(19,'Yes',5,10),(20,'No',5,10),(21,'Yes',6,5),(22,'No',6,NULL),(23,'Yes',7,4),(24,'No',7,8),(25,'Yes',8,9),(26,'No',8,NULL),(27,'Yes',9,10),(28,'No',9,NULL),(29,'Yes',10,11),(30,'No',10,11),(31,'Yes',11,12),(32,'No',11,12),(33,'Yes',12,13),(34,'No',12,13),(35,'Yes',13,14),(36,'No',13,NULL),(37,'Yes',14,NULL),(38,'No',14,NULL);
 
 
 CREATE TABLE `tblOptionCourse` (
@@ -203,17 +204,4 @@ CREATE TABLE `tblOptionCourse` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-INSERT INTO `tblOptionCourse` VALUES (31,1),(31,2),(33,3),(33,4),(15,5),(15,6),(23,7),(23,8),(35,9),(37,10),(19,11),(25,12),(25,13),(29,14),(29,15);
-
-
-CREATE TABLE `tblQuestionOption` (
-  `questionId` int NOT NULL,
-  `optionId` int NOT NULL,
-  PRIMARY KEY (`questionId`,`optionId`),
-  KEY `fk_optionId_idx` (`optionId`),
-  CONSTRAINT `fk_optionId` FOREIGN KEY (`optionId`) REFERENCES `tblOption` (`optionId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_questionId` FOREIGN KEY (`questionId`) REFERENCES `tblQuestion` (`questionId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `tblQuestionOption` VALUES (1,11),(1,12),(2,13),(2,14),(3,15),(3,16),(4,17),(4,18),(5,19),(5,20),(6,21),(6,22),(7,23),(7,24),(8,25),(8,26),(9,27),(9,28),(10,29),(10,30),(11,31),(11,32),(12,33),(12,34),(13,35),(13,36),(14,37),(14,38);
-
+INSERT INTO `tblOptionCourse` VALUES (31,1),(31,2),(33,3),(33,4),(15,5),(15,6),(23,7),(23,8),(35,9),(37,10),(19,11),(25,12),(25,13),(29,14),(29,15);    
