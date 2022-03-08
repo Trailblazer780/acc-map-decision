@@ -199,7 +199,7 @@ CREATE TABLE `tblOptionCourse` (
   `courseId` int NOT NULL,
   PRIMARY KEY (`optionId`,`courseId`),
   KEY `courseId_idx` (`courseId`),
-  CONSTRAINT `courseId` FOREIGN KEY (`courseId`) REFERENCES `tblcourse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `courseId` FOREIGN KEY (`courseId`) REFERENCES `tblCourse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `optionId` FOREIGN KEY (`optionId`) REFERENCES `tblOption` (`optionId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

@@ -19,6 +19,7 @@ namespace accmapdecision.Models {
 
         private DbSet<Course> tblCourse {get; set;}
         private DbSet<Semester> tblSemester {get; set;}
+        private DbSet<Question> tblQuestion {get; set;}
         private DbSet<CourseOffered> tblCourse_semester {get; set;}
 
         public List<Course> course {
@@ -48,12 +49,22 @@ namespace accmapdecision.Models {
             }
         }
 
+        public List<Question> question {
+            get {
+                return tblQuestion.OrderBy(i => i.questionID).Include(one => one.optionsList).ToList();
+            }
+        }
+
         public Semester getSemester(int id) {
             return tblSemester.Where(i => i.semester_id == id).Include(one => one.courses).FirstOrDefault();
         }
 
         public Course getCourse(int id){
             return tblCourse.Where(i => i.id == id).FirstOrDefault();
+        }
+
+        public Question getQuestion(int id) {
+            return tblQuestion.Where(i => i.questionID == id).Include(one => one.optionsList).FirstOrDefault();
         }
 
         public Course getCourseRequisites(int id){

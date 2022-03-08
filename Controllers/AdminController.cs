@@ -44,7 +44,6 @@ namespace accmapdecision.Controllers {
             return View("AllSemesters", Admin);
         }
 
-        [HttpPost]
         public IActionResult AllQuestions(){
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
@@ -249,7 +248,29 @@ namespace accmapdecision.Controllers {
         }
 
         // --------------------------------------------------- Questions ---------------------------------------------------
+        [HttpPost]
+        public IActionResult ViewQuestion(int id) {
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            // construction of the model
+            Admin = new AdminModel(HttpContext);
+            Question question = Admin.getQuestion(id);
 
+            return View("ViewQuestion", question);
+        }
+
+        [HttpPost]
+        public IActionResult EditQuestion(int id) {
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Question question = Admin.getQuestion(id);
+            return View("EditQuestion", question);
+        }
 
 
 
