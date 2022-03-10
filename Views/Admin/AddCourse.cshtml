@@ -1,0 +1,54 @@
+@model Course;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - Add New Course   <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+        <div class="container">
+        <div stlye="padding-bottom: 10px">
+            <h1 class="text-center text-info">Adding New Course</h1>
+        </div>
+        <form style="width: 100%;" asp-controller="Admin" asp-action="AddCourseSubmit">
+            @* <input type="hidden" name="id" asp-for="@Model.id"> *@
+            <div class="form-group" style="max-width: 300px !important">
+                <label for="code"><strong>Course Code:</strong></label>
+                <input class="form-control" type="text" asp-for="@Model.course_code">
+                <span asp-validation-for="@Model.course_code" class="text-danger"></span>
+            </div>
+            <hr>
+            <div class="form-group" style="max-width: 300px !important">
+                <label for="name"><strong>Course Name:</strong></label>
+                <input stlye="max-width: 300px !important" asp-for="@Model.course_name" class="form-control" type="text"></div>
+                <span asp-validation-for="@Model.course_name" class="text-danger"></span>
+            <hr>
+            <div class="form-group">
+                <label for="description"><strong>Course Description:</strong></label> 
+                <textarea class="form-control" asp-for="@Model.course_description" rows="6"></textarea></div>
+                <span asp-validation-for="@Model.course_description" class="text-danger"></span>
+            <hr>
+            <div class="form-group">
+                <label for="rationale"><strong>Course rationale:</strong></label> 
+                <textarea class="form-control" asp-for="@Model.course_rationale" rows="6" type="textarea"></textarea></div>
+                <span asp-validation-for="@Model.course_rationale" class="text-danger"></span>
+            <hr>
+            <div class="form-group">
+                <label for="description"><strong>Course Prerequisites:</strong></label> 
+                <ul class="list-group" style="padding-top: 5px">
+                    @foreach (var item in ViewBag.allCourses)
+                    {
+                        <li class="list-group-item">
+                            <input type="checkbox" asp-for-checkbox="true" name="courses[]" value="@item.id"/> @item.course_code | @item.course_name
+                        </li>
+                    }
+                </ul>
+            </div>
+
+
+            <div class="centerDelete form-group">
+                <span><button class="btn btn-danger" type="submit">Edit</button></span>
+                <div style="padding-left: 5px;">
+                    <span><a asp-controller="Admin" asp-action="AllCourses"><input type="button" class="btn btn-info" value="Cancel"></a></span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

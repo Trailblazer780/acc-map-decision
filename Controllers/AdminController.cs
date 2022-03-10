@@ -54,6 +54,56 @@ namespace accmapdecision.Controllers {
         }
 
         // --------------------------------------------------- Course ---------------------------------------------------
+        public IActionResult AddCourse() {
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+
+            ViewBag.allCourses = Admin.getAllCourses();
+            return View("AddCourse", new Course());
+        }
+
+        [HttpPost]
+        public IActionResult AddCourseSubmit(Course course, string[] courses) {
+            Console.WriteLine("Courses: " + course);
+            Console.WriteLine("-----------------------" + courses);
+            // construction of the model
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+
+            List<Requisite> selectedRequisites = new List<Requisite>();
+
+            for(int i = 0; i < courses.Length; i++){
+                Requisite courseReq = new Requisite();
+                courseReq.requiredCourse = Admin.getCourse(Int32.Parse(courses[i]));
+                courseReq.course = course;
+                courseReq.type = 0;
+                courseReq.condition = 1;
+                Admin.Attach(courseReq);
+                selectedRequisites.Add(courseReq);
+            }
+
+            if(ModelState.IsValid) {
+                course.requisites = selectedRequisites;
+                // Admin.Database.
+                Admin.Add(course);
+                Admin.SaveChanges();
+                return RedirectToAction("AllCourses", Admin);
+            } 
+            else{
+                ViewBag.allCourses = Admin.getAllCourses();
+                course.requisites = selectedRequisites;
+                return View("AddCourse", course);
+            }
+        }
+
+
+
         [HttpPost]
         public IActionResult ViewCourse(int id) {
             // construction of the model
@@ -122,6 +172,8 @@ namespace accmapdecision.Controllers {
                 return RedirectToAction("AllCourses", Admin);
             } 
             else{
+                ViewBag.allCourses = Admin.getAllCourses();
+                course.requisites = selectedRequisites;
                 return View("EditCourse", course);
             }
         }
@@ -162,6 +214,48 @@ namespace accmapdecision.Controllers {
         }
 
         // --------------------------------------------------- Semester ---------------------------------------------------
+        public IActionResult AddSemester(){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+
+            ViewBag.allCourses = Admin.getAllCourses();
+            return View("AddSemester", new Semester());
+        }
+
+        [HttpPost]
+        public IActionResult AddSemesterSubmit(Semester semester, String[] courses){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            List<Course> selectedCourses = new List<Course>();
+
+            for(int i = 0; i < courses.Length; i++){
+                Course course = Admin.getCourse(Int32.Parse(courses[i]));
+                course.id = Int32.Parse(courses[i]);
+                Admin.Attach(course);
+                selectedCourses.Add(course);
+            }
+
+            if(ModelState.IsValid) {
+                // Admin.Database.
+                semester.courses = selectedCourses;
+                Admin.Add(semester);
+                Admin.SaveChanges();
+                return RedirectToAction("AllSemesters", Admin);
+            } 
+            else{
+                ViewBag.allCourses = Admin.getAllCourses();
+                semester.courses = selectedCourses;
+                return View("AddSemester", semester);
+            }
+        }
+        
+
         [HttpPost]
         public IActionResult ViewSemester(int id, string code) {
             // if not logged in send user back to home page
@@ -214,6 +308,8 @@ namespace accmapdecision.Controllers {
                 return RedirectToAction("AllSemesters", Admin);
             } 
             else{
+                ViewBag.allCourses = Admin.getAllCourses(); 
+                semester.courses = selectedCourses;
                 return View("EditSemester", semester);
             }
         }
