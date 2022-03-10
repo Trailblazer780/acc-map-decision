@@ -32,31 +32,44 @@ namespace accmapdecision.Controllers {
                 userResponseManager.currentQuestionID = 1;
             }
 
-            if(selectedOptionId == 0) {     // First request
-
+            if(selectedOptionId == 0 || selectedOptionId == 11 ) {     // // Temporary: Handling error for First request or selected ALP-AU
+                userResponseManager.populateUserResponseModel();
+                userResponseManager.currentQuestionID = 1;
             } else {
-                Console.WriteLine("\n\nSelected Option: " + selectedOptionId);
-                Console.WriteLine(currentQuestionID + " QID");
 
                 // Fetch current question object
-                Question currentQuestion = userResponseManager.userResponse.questionsAndResponses.Find(x => x.questionID == currentQuestionID);
+                QuestionModel currentQuestion = userResponseManager.userResponse.questionsAndResponses.Find(x => x.questionID == currentQuestionID);
                 int currentQuestionIndex = userResponseManager.userResponse.questionsAndResponses.FindIndex(x => x.questionID == currentQuestionID);
 
                 // Fetch selected option object
-                Option optionSelected = currentQuestion.optionsList.First(x => x.optionID == selectedOptionId);
+                OptionModel optionSelected = currentQuestion.optionsList.First(x => x.optionID == selectedOptionId);
+                
+                // Update list of courses
+                userResponseManager.userResponse.coursesToInclude.AddRange(optionSelected.courses);
 
                 // Update current question object with selected option
-                currentQuestion.optionSelected = optionSelected;
+                currentQuestion.selectedOptionId = optionSelected.optionID;
+                currentQuestion.selectedOptionText = optionSelected.optionText;
                 userResponseManager.userResponse.questionsAndResponses[currentQuestionIndex] = currentQuestion;
 
                 // Fetch next question based on nextQuestionId
-                Question nextQuestion = userResponseManager.userResponse.questionsAndResponses.Find(x => x.questionID == optionSelected.nextQuestionId);
+                if(optionSelected.nextQuestionId != 0) {
+                    QuestionModel nextQuestion = userResponseManager.userResponse.questionsAndResponses.Find(x => x.questionID == optionSelected.nextQuestionId);
 
-                // Set next question as current question and return the model
-                userResponseManager.currentQuestionID = optionSelected.nextQuestionId;
-                userResponseManager.currentQuestion = nextQuestion;
+                    // Set next question as current question and return the model
+                    // Check for end of questions                    
+                    userResponseManager.currentQuestionID = optionSelected.nextQuestionId;
+                    userResponseManager.currentQuestion = nextQuestion;
+                } else {    
+
+                    // Temporary: Handling error for end of questions
+                    userResponseManager.currentQuestionID = currentQuestionID;
+                    userResponseManager.currentQuestion = currentQuestion;
+                }
+
+                // Console.WriteLine(userResponseManager.userResponse);
             }
-            
+
             return View(userResponseManager);
         }
 

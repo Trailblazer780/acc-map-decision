@@ -8,16 +8,21 @@
 
         <div class="loginCenter">
             <form method="POST" asp-controller="Home" asp-action="Index">
-                <input type="hidden" asp-for="@Model.userResponseState" asp-value="@Model.userResponseState">
-                @* <input type="hidden" asp-for="@Model.currentQuestionState" asp-value="@Model.currentQuestionState"> *@
-                <input type="hidden" asp-for="@Model.isQuestionsPopulated" asp-value="@Model.isQuestionsPopulated">
-                @* <input type="number" name="currentQuestionID" asp-for="@Model.currentQuestionID" asp-value="@Model.currentQuestionID"> *@
+                <input type="hidden" asp-for="@Model.userResponseState" value="@Model.userResponseState">
+                <input type="hidden" asp-for="@Model.isQuestionsPopulated" value="@Model.isQuestionsPopulated">
                 <input type="hidden" name="currentQuestionID" value="@Model.currentQuestionID">
                 @foreach (var option in Model.currentQuestion.optionsList){
                     <div class="buttonContainer text-center">
                         <button name="selectedOptionId" class="firstButton btn btn-info" type="submit" value="@option.optionID">@option.optionText</button>
                     </div>
                 }
+
+                <ul class="list-group" style="padding-top: 5px">
+                    @foreach (var course in Model.userResponse.coursesToInclude) {
+                        <li class="list-group-item">@course.courseCode</li>
+                    }
+                </ul>
+                
             </form>
         </div>
         

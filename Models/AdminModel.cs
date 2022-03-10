@@ -119,11 +119,11 @@ namespace accmapdecision.Models {
 
             
             // Option - Course mapping
-            modelBuilder.Entity<OptionCourseMapping>().HasKey(oc => new { oc.course_id, oc.option_id });
+            modelBuilder.Entity<OptionCourseMapping>().HasKey(oc => new { oc.courseId, oc.optionId });
 
             modelBuilder.Entity<Option>().HasMany(p => p.courses).WithMany(p => p.options).UsingEntity<OptionCourseMapping>(
-                j => j.HasOne(pt => pt.course).WithMany(t => t.optionCourseMapping).HasForeignKey(pt => pt.course_id),
-                j => j.HasOne(pt => pt.option).WithMany(p => p.optionCourseMapping).HasForeignKey(pt => pt.option_id)
+                j => j.HasOne(pt => pt.course).WithMany(t => t.optionCourseMapping).HasForeignKey(pt => pt.courseId),
+                j => j.HasOne(pt => pt.option).WithMany(p => p.optionCourseMapping).HasForeignKey(pt => pt.optionId)
             );
 
 

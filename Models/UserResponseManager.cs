@@ -2,23 +2,24 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;  
-
 namespace accmapdecision.Models {
 
     public class UserResponseManager : DbContext  {
 
+        private DbSet<Course> tblCourse {get; set;}
+        private DbSet<Question> tblQuestion {get; set;}
+        private DbSet<Option> tblOption {get; set;}
+
         public UserResponse userResponse {get; set;} = new UserResponse();
         public bool isQuestionsPopulated {get; set;} = false;
         private string _userResponseState;
-
     
-        private Question _currentQuestion;
+        private QuestionModel _currentQuestion;
 
         private int _currentQuestionID;
 
-        public Question currentQuestion {
+        public QuestionModel currentQuestion {
             get {
                 return _currentQuestion;
             }
@@ -36,67 +37,91 @@ namespace accmapdecision.Models {
             }
         }
 
-        public void populateUserResponseModel() {
-            Question q1 = new Question();
-            q1.questionID = 1;
-            q1.questionText = "Are you thinking of taking ALP or ACC?";
-            
-            List<Option> options = new List<Option>();
-            options.Add(new Option(1, "ALP - Adult Learning Program", 0));
-            options.Add(new Option(2, "ACC - Academic and Career Connections", 2));
-            q1.optionsList = options;
-
-
-            Question q2 = new Question();
-            q2.questionID = 2;
-            q2.questionText = "Do I need to take Math?";
-            
-            List<Option> options2 = new List<Option>();
-            options2.Add(new Option(3, "Yes", 3));
-            options2.Add(new Option(4, "No", 4));
-            q2.optionsList = options2;
-
-
-            Question q3 = new Question();
-            q3.questionID = 3;
-            q3.questionText = "Do I require College Health Math?";
-            
-            List<Option> options3 = new List<Option>();
-            options3.Add(new Option(5, "Yes", 5));
-            options3.Add(new Option(6, "No", 6));
-            q3.optionsList = options3;
-
-
-            Question q4 = new Question();
-            q4.questionID = 4;
-            q4.questionText = "Do I need to take English?";
-            
-            List<Option> options4 = new List<Option>();
-            options4.Add(new Option(7, "Yes", 7));
-            options4.Add(new Option(8, "No", 8));
-            q4.optionsList = options4;
-
-            userResponse.questionsAndResponses.Add(q1);
-            userResponse.questionsAndResponses.Add(q2);
-            userResponse.questionsAndResponses.Add(q3);
-            userResponse.questionsAndResponses.Add(q4);
-
-            _currentQuestion = q1;
-            isQuestionsPopulated = true;
-        }
-
         public string userResponseState {
             get {
-               return JsonConvert.SerializeObject(userResponse); 
+                return JsonConvert.SerializeObject(userResponse);               
             }
             set {
                 userResponse = JsonConvert.DeserializeObject<UserResponse>(value);
             }
         }
 
+        public void populateUserResponseModel() {
+
+            
+            List<Question> questionsFromDb = tblQuestion.OrderBy(q => q.questionID).Include(q => q.optionsList).ThenInclude(o => o.courses).ToList();
+
+            List<QuestionModel> questionsList = new List<QuestionModel>();
+            foreach(Question question in questionsFromDb) {
+                QuestionModel questionModel = new QuestionModel(question.questionID, question.questionText, question.questionDescription);
+                Console.WriteLine(questionModel);
+                foreach(Option option in question.optionsList) {
+                    OptionModel optionModel = new OptionModel(option.optionID, option.optionText, option.nextQuestionId);
+                    foreach(Course course in option.courses) {
+                        CourseModel courseModel = new CourseModel(course.id, course.course_code);
+                        optionModel.courses.Add(courseModel);
+                        Console.WriteLine(courseModel);
+                    }
+                    Console.WriteLine(optionModel);
+                    questionModel.optionsList.Add(optionModel);
+                }
+                questionsList.Add(questionModel);
+            }
+
+
+            userResponse.questionsAndResponses = questionsList;
+            _currentQuestion = questionsList.First();
+
+            isQuestionsPopulated = true;
+        }
+
         // -------------------------------------------------- private methods
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseMySql(Connection.CONNECTION_STRING, new MySqlServerVersion(new Version(8, 0, 11)));
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder){
+            // Semester
+            modelBuilder.Entity<Semester>().HasMany(p => p.courses).WithMany(p => p.semesters).UsingEntity<CourseOffered>(
+            j => j.HasOne(pt => pt.course).WithMany(t => t.courseOffered).HasForeignKey(pt => pt.course_id),
+            j => j.HasOne(pt => pt.semester).WithMany(p => p.courseOffered).HasForeignKey(pt => pt.semester_id)
+            );
+            modelBuilder.Entity<CourseOffered>().HasKey(bc => new { bc.semester_id, bc.course_id });
+
+            // Course -Requisites
+            modelBuilder.Entity<Requisite>().HasKey(bc => new { bc.course_id, bc.required_course_id });
+
+            modelBuilder.Entity<Course>()
+                        .HasMany<Requisite>(s => s.requisites)
+                        .WithOne(a => a.course)
+                        .HasForeignKey(ad => ad.course_id);
+
+            modelBuilder.Entity<Requisite>()
+                        .HasOne<Course>(s => s.requiredCourse)
+                        .WithMany(a => a.requisites2)
+                        .HasForeignKey(ad => ad.required_course_id)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            // Question - Option
+            modelBuilder.Entity<Option>()
+                        .HasOne<Question>(s => s.question)
+                        .WithMany(g => g.optionsList)
+                        .HasForeignKey(s => s.questionId);
+
+            modelBuilder.Entity<Option>()
+                        .HasOne<Question>(s => s.nextQuestion)
+                        .WithMany()
+                        .HasForeignKey(s => s.nextQuestionId);
+
+            
+            // Option - Course mapping
+            modelBuilder.Entity<OptionCourseMapping>().HasKey(oc => new { oc.courseId, oc.optionId });
+
+            modelBuilder.Entity<Option>().HasMany(p => p.courses).WithMany(p => p.options).UsingEntity<OptionCourseMapping>(
+                j => j.HasOne(pt => pt.course).WithMany(t => t.optionCourseMapping).HasForeignKey(pt => pt.courseId),
+                j => j.HasOne(pt => pt.option).WithMany(p => p.optionCourseMapping).HasForeignKey(pt => pt.optionId)
+            );
+
         }
 
     }
