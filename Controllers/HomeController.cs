@@ -47,6 +47,11 @@ namespace accmapdecision.Controllers {
                 // Update list of courses
                 userResponseManager.userResponse.coursesToInclude.AddRange(optionSelected.courses);
 
+                // Add to total course units
+                foreach(CourseModel courseToInclude in optionSelected.courses) {
+                    userResponseManager.userResponse.totalCourseUnits += courseToInclude.courseUnits;
+                }
+
                 // Update current question object with selected option
                 currentQuestion.selectedOptionId = optionSelected.optionID;
                 currentQuestion.selectedOptionText = optionSelected.optionText;
@@ -61,14 +66,20 @@ namespace accmapdecision.Controllers {
                     userResponseManager.currentQuestionID = optionSelected.nextQuestionId;
                     userResponseManager.currentQuestion = nextQuestion;
                 } else {    
-
-                    // Temporary: Handling error for end of questions
-                    userResponseManager.currentQuestionID = currentQuestionID;
-                    userResponseManager.currentQuestion = currentQuestion;
+                    // Handling end of questions
+                    return View("Decision", userResponseManager);
                 }
 
                 // Console.WriteLine(userResponseManager.userResponse);
             }
+
+            return View(userResponseManager);
+        }
+
+        [HttpPost]
+        public IActionResult SelectCourses(UserResponseManager userResponseManagerModel) {
+            this.userResponseManager = userResponseManagerModel;
+            // userResponseManager.populateProgramCourseMap();
 
             return View(userResponseManager);
         }

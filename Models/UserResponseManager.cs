@@ -10,6 +10,7 @@ namespace accmapdecision.Models {
         private DbSet<Course> tblCourse {get; set;}
         private DbSet<Question> tblQuestion {get; set;}
         private DbSet<Option> tblOption {get; set;}
+        private DbSet<Semester> tblSemester {get; set;}
 
         public UserResponse userResponse {get; set;} = new UserResponse();
         public bool isQuestionsPopulated {get; set;} = false;
@@ -58,7 +59,7 @@ namespace accmapdecision.Models {
                 foreach(Option option in question.optionsList) {
                     OptionModel optionModel = new OptionModel(option.optionID, option.optionText, option.nextQuestionId);
                     foreach(Course course in option.courses) {
-                        CourseModel courseModel = new CourseModel(course.id, course.course_code);
+                        CourseModel courseModel = new CourseModel(course.id, course.course_code, course.course_units);
                         optionModel.courses.Add(courseModel);
                         Console.WriteLine(courseModel);
                     }
@@ -74,6 +75,41 @@ namespace accmapdecision.Models {
 
             isQuestionsPopulated = true;
         }
+
+
+        // public void populateProgramCourseMap() {
+            
+        //     List<Semester> semestersFromDb = tblSemester.OrderBy(q => q.semester_id).Include(q => q.courses).ThenInclude(o => o.requisites).ToList();
+
+        //     List<QuestionModel> questionsList = new List<QuestionModel>();
+        //     foreach(Question question in questionsFromDb) {
+        //         QuestionModel questionModel = new QuestionModel(question.questionID, question.questionText, question.questionDescription);
+        //         Console.WriteLine(questionModel);
+        //         foreach(Option option in question.optionsList) {
+        //             OptionModel optionModel = new OptionModel(option.optionID, option.optionText, option.nextQuestionId);
+        //             foreach(Course course in option.courses) {
+        //                 CourseModel courseModel = new CourseModel(course.id, course.course_code, course.course_units);
+        //                 optionModel.courses.Add(courseModel);
+        //                 Console.WriteLine(courseModel);
+        //             }
+        //             Console.WriteLine(optionModel);
+        //             questionModel.optionsList.Add(optionModel);
+        //         }
+        //         questionsList.Add(questionModel);
+        //     }
+
+
+        //     userResponse.questionsAndResponses = questionsList;
+        //     _currentQuestion = questionsList.First();
+
+        //     isQuestionsPopulated = true;
+        // }
+
+
+        public void resetUserResponseState() {
+
+        }
+
 
         // -------------------------------------------------- private methods
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {

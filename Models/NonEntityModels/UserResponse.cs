@@ -9,6 +9,12 @@ namespace accmapdecision.Models {
 
         public ProgramCourseMap programCourseMap {get;set;} = new ProgramCourseMap();   // Courses selected for the entire program
 
+        public float totalCourseUnits {get;set;} = 0.0F;
+
+
+        // Add selectedCourses and remainingCourses
+
+
         public override string ToString() {
             string data = "";
             foreach(QuestionModel question in questionsAndResponses) {
@@ -20,6 +26,11 @@ namespace accmapdecision.Models {
             foreach(CourseModel course in coursesToInclude) {
                 data += "\nCourse: " + course.courseCode;
             }
+
+            data += "\n----------------------------------------------------\n";
+
+            data += "\nCourseUnits: " + totalCourseUnits;
+
             return data;
         }
     }  

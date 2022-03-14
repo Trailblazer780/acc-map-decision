@@ -19,6 +19,9 @@ namespace accmapdecision.Models {
         [Required]
         [Display(Name="Course Name")]
         public string course_name {get; set;}
+        // [Required]
+        [Display(Name="Course Units")]
+        public float course_units {get; set;}
         [Required]
         [Display(Name="Course Description")]
         public string course_description {get; set;}
