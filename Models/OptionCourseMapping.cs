@@ -13,7 +13,7 @@ namespace accmapdecision.Models {
         
         [Key]
         [Required]
-        public int course_id {get; set;}
+        public int id {get; set;}
 
         public Option option {get; set;}
         public Course course {get; set;}

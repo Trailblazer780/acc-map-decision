@@ -21,6 +21,7 @@ namespace accmapdecision.Models {
         private DbSet<Semester> tblSemester {get; set;}
         private DbSet<Question> tblQuestion {get; set;}
         private DbSet<CourseOffered> tblCourse_semester {get; set;}
+        private DbSet<Option> tblOption {get; set;}
 
         public List<Course> course {
             get {
@@ -52,6 +53,11 @@ namespace accmapdecision.Models {
         public List<Question> question {
             get {
                 return tblQuestion.OrderBy(i => i.questionID).Include(one => one.optionsList).ToList();
+            }
+        }
+        public List<Option> option {
+            get {
+                return tblOption.OrderBy(i => i.optionID).Include(one => one.courses).Include(two => two.nextQuestion).ToList();
             }
         }
 
@@ -119,10 +125,10 @@ namespace accmapdecision.Models {
 
             
             // Option - Course mapping
-            modelBuilder.Entity<OptionCourseMapping>().HasKey(oc => new { oc.course_id, oc.option_id });
+            modelBuilder.Entity<OptionCourseMapping>().HasKey(oc => new { oc.id, oc.option_id });
 
             modelBuilder.Entity<Option>().HasMany(p => p.courses).WithMany(p => p.options).UsingEntity<OptionCourseMapping>(
-                j => j.HasOne(pt => pt.course).WithMany(t => t.optionCourseMapping).HasForeignKey(pt => pt.course_id),
+                j => j.HasOne(pt => pt.course).WithMany(t => t.optionCourseMapping).HasForeignKey(pt => pt.id),
                 j => j.HasOne(pt => pt.option).WithMany(p => p.optionCourseMapping).HasForeignKey(pt => pt.option_id)
             );
 

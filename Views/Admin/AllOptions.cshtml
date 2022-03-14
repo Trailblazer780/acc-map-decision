@@ -1,0 +1,53 @@
+@model AdminModel;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - Options <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+    <div class="container">
+        <div style="padding-bottom: 5px">
+            <a href="Index"><input type="submit" class="btn btn-info" value="Back"/></a>
+        </div>
+         <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Option Text</th>
+                            <th scope="col">Next Question</th>
+                            <th scope="col">Courses</th>
+                            <th scope="col">View/Edit/Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.option){
+                        <tr>
+                            <td>@item.optionText</td>
+                            <td>@item.nextQuestion.questionText</td>
+                            <td>@foreach (var course in item.courses){
+                                @course.course_code
+                                }
+                            </td>
+                            <td>
+                                <span class="courseButtons">
+                                    <form asp-controller="Admin" asp-action="ViewQuestion">
+                                        <input type="hidden" name="id" value="@item.optionID"/>
+                                        <input class="btn btn-info" type="Submit" value="View">
+                                    </form>
+                                </span>
+                                <span class="courseButtons">
+                                    <form asp-controller="Admin" asp-action="EditQuestion">
+                                        <input type="hidden" name="id" value="@item.optionID"/>
+                                        <input class="btn btn-info" type="Submit" value="Edit">
+                                    </form>
+                                </span>
+                                <span class="courseButtons">
+                                    <form asp-controller="Admin" asp-action="DeleteCourse">
+                                        <input type="hidden" name="courseID" value="@item.optionID"/>
+                                        <input class="btn btn-danger" type="Submit" value="Delete">
+                                    </form>
+                                </span>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+    </div>
+</div>
