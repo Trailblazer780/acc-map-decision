@@ -53,6 +53,15 @@ namespace accmapdecision.Controllers {
             return View("AllQuestions", Admin);
         }
 
+        public IActionResult AllOptions() {
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            return View("AllOptions", Admin);
+        }
+
         // --------------------------------------------------- Course ---------------------------------------------------
         public IActionResult AddCourse() {
             // if not logged in send user back to home page
@@ -368,8 +377,11 @@ namespace accmapdecision.Controllers {
             return View("EditQuestion", question);
         }
 
+        // --------------------------------------------------- Options ---------------------------------------------------
 
 
+
+        // --------------------------------------------------- Logout ---------------------------------------------------
         [HttpPost]
         public IActionResult Logout() {
             // construction of the model
