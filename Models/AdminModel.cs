@@ -70,7 +70,7 @@ namespace accmapdecision.Models {
         }
 
         public Question getQuestion(int id) {
-            return tblQuestion.Where(i => i.questionID == id).Include(one => one.optionsList).FirstOrDefault();
+            return tblQuestion.Where(i => i.questionID == id).Include(one => one.optionsList).ThenInclude(two => two.courses).FirstOrDefault();
         }
 
         public Course getCourseRequisites(int id){

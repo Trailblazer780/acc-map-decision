@@ -10,8 +10,8 @@
          <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Course Name</th>
-                            <th scope="col">Course Code</th>
+                            <th scope="col">Question ID</th>
+                            <th scope="col">Question Text</th>
                             <th scope="col">View/Edit/Delete</th>
                         </tr>
                     </thead>
@@ -34,8 +34,8 @@
                                     </form>
                                 </span>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin" asp-action="DeleteCourse">
-                                        <input type="hidden" name="courseID" value="@item.questionID"/>
+                                    <form asp-controller="Admin" asp-action="DeleteQuestion">
+                                        <input type="hidden" name="id" value="@item.questionID"/>
                                         <input class="btn btn-danger" type="Submit" value="Delete">
                                     </form>
                                 </span>

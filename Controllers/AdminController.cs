@@ -377,6 +377,45 @@ namespace accmapdecision.Controllers {
             return View("EditQuestion", question);
         }
 
+        [HttpPost]
+        public IActionResult EditQuestionSubmit(int id, string text, string description){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Question question = Admin.getQuestion(id);
+            question.questionText = text;
+            question.questionDescription = description;
+            Admin.Update(question);
+            Admin.SaveChanges();
+            return RedirectToAction("AllQuestions");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteQuestion(int id) {
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Question question = Admin.getQuestion(id);
+            // question.questionID = id;
+            return View("DeleteQuestion", question);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteQuestionSubmit(int id){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Question question = Admin.getQuestion(id);
+            Admin.Remove(question);
+            Admin.SaveChanges();
+            return RedirectToAction("AllQuestions");
+        }
         // --------------------------------------------------- Options ---------------------------------------------------
 
 
