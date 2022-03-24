@@ -57,8 +57,12 @@ namespace accmapdecision.Models {
         }
         public List<Option> option {
             get {
-                return tblOption.OrderBy(i => i.optionID).Include(one => one.courses).Include(two => two.nextQuestion).ToList();
+                return tblOption.OrderBy(i => i.optionID).Include(one => one.courses).Include(two => two.nextQuestion).Include(three => three.question).ToList();
             }
+        }
+
+        public Option getOption(int id) {
+            return tblOption.Where(i => i.optionID == id).Include(one => one.courses).Include(two => two.nextQuestion).Include(three => three.question).FirstOrDefault();
         }
 
         public Semester getSemester(int id) {
@@ -73,12 +77,17 @@ namespace accmapdecision.Models {
             return tblQuestion.Where(i => i.questionID == id).Include(one => one.optionsList).ThenInclude(two => two.courses).FirstOrDefault();
         }
 
+
         public Course getCourseRequisites(int id){
             return tblCourse.Where(i => i.id == id).Include(one => one.requisites).ThenInclude(one => one.requiredCourse).FirstOrDefault();
         }
 
         public List<Course> getAllCourses() {
             return tblCourse.OrderBy(i => i.id).ToList();
+        }
+
+        public List<Question> getAllQuestions() {
+            return tblQuestion.OrderBy(i => i.questionID).ToList();
         }
 
         public void Logout() {

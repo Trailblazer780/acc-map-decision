@@ -373,24 +373,86 @@ namespace accmapdecision.Controllers {
                 return RedirectToAction("Index", "Home");
             }
             Admin = new AdminModel(HttpContext);
+            ViewBag.allCourses = Admin.getAllCourses();
             Question question = Admin.getQuestion(id);
             return View("EditQuestion", question);
         }
 
         [HttpPost]
-        public IActionResult EditQuestionSubmit(int id, string text, string description){
+        public IActionResult EditQuestionSubmit(int id, string text, string description, string[][] courses){
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
+
             Admin = new AdminModel(HttpContext);
+
+
             Question question = Admin.getQuestion(id);
             question.questionText = text;
             question.questionDescription = description;
+
+            // LENGTH OF COURSES
+            int length = courses.Length;
+            Console.WriteLine("LENGTH: " + length);
+
+            for(int i = 0; i < courses.Length; i++){
+                for(int j = 0;  j < courses[i].Length; j++){
+                    Course course = Admin.getCourse(Int32.Parse(courses[i][j]));
+                    Console.WriteLine(courses[i][j]);
+                    Console.WriteLine("forlooP");
+                    // Admin.Attach(course);
+                    // question.courses.Add(course);
+                }
+
+                // Course course = Admin.getCourse(Int32.Parse(courses[i]));
+                // course = Int32.Parse(courses[i]);
+                // Console.WriteLine(course.course_code);
+                // course.requiredCourse = Admin.getCourse(Int32.Parse(courses[i]));
+                // course.course = course;
+                // course.type = 0;
+                // course.condition = 1;
+                // Admin.Attach(course);
+                // selectedRequisites.Add(course);
+            }
             Admin.Update(question);
             Admin.SaveChanges();
             return RedirectToAction("AllQuestions");
         }
+
+            //         if (HttpContext.Session.GetString("auth") != "true"){
+            //     return RedirectToAction("Index", "Home");
+            // }
+            // Admin = new AdminModel(HttpContext);
+
+            // List<Requisite> selectedRequisites = new List<Requisite>();
+
+            // for(int i = 0; i < courses.Length; i++){
+            //     Requisite courseReq = new Requisite();
+            //     courseReq.requiredCourse = Admin.getCourse(Int32.Parse(courses[i]));
+            //     courseReq.course = course;
+            //     courseReq.type = 0;
+            //     courseReq.condition = 1;
+            //     Admin.Attach(courseReq);
+            //     selectedRequisites.Add(courseReq);
+            // }
+
+            // if(ModelState.IsValid) {
+            //     Admin.Database.ExecuteSqlRaw("DELETE FROM tblRequisite WHERE type = 0 AND course_id = " + course.id);
+            //     course.requisites = selectedRequisites;
+            //     // Admin.Database.
+            //     Admin.Update(course);
+            //     Admin.SaveChanges();
+            //     return RedirectToAction("AllCourses", Admin);
+            // } 
+            // else{
+            //     ViewBag.allCourses = Admin.getAllCourses();
+            //     course.requisites = selectedRequisites;
+            //     return View("EditCourse", course);
+            // }
+
+
+
 
         [HttpPost]
         public IActionResult DeleteQuestion(int id) {
@@ -417,7 +479,56 @@ namespace accmapdecision.Controllers {
             return RedirectToAction("AllQuestions");
         }
         // --------------------------------------------------- Options ---------------------------------------------------
+        [HttpPost]
+        public IActionResult ViewOption(int id){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Option option = Admin.getOption(id);
+            return View("ViewOption", option);
+        }
 
+        [HttpPost]
+        public IActionResult EditOption(int id){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            ViewBag.allQuestions = Admin.getAllQuestions();
+            ViewBag.allCourses = Admin.getAllCourses();
+            Option option = Admin.getOption(id);
+            return View("EditOption", option);
+        }
+
+        [HttpPost]
+        public IActionResult EditOptionSubmit(int id, String[] courses, string nextQuestion, string optionText){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            Option option = Admin.getOption(id);
+            option.nextQuestion = Admin.getQuestion(Int32.Parse(nextQuestion));
+            option.optionText = optionText;
+            
+            List<Course> selectedCourses = new List<Course>();
+
+            for(int i = 0; i < courses.Length; i++){
+                Course course = Admin.getCourse(Int32.Parse(courses[i]));
+                course.id = Int32.Parse(courses[i]);
+                Admin.Attach(course);
+                selectedCourses.Add(course);
+            }
+
+            option.courses = selectedCourses;
+
+            Admin.Update(option);
+            Admin.SaveChanges();
+            return RedirectToAction("AllOptions");
+        }
 
 
         // --------------------------------------------------- Logout ---------------------------------------------------

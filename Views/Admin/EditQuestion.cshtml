@@ -10,28 +10,36 @@
         </div>
         <form style="width: 100%;" asp-controller="Admin" asp-action="EditQuestionSubmit">
             <input type="hidden" name="id" asp-for="@Model.questionID">
-            <div class="form-group" style="max-width: 300px !important">
+            <div class="form-group" style="max-width: 600px !important">
                 <label for="code"><strong>Question Text:</strong></label>
                 <input class="form-control" type="text" name="text" asp-for="@Model.questionText">
                 <span asp-validation-for="@Model.questionText" class="text-danger"></span>
             </div>
-                <div class="form-group" style="max-width: 300px !important">
+                <div class="form-group" style="max-width: 600px !important">
                 <label for="code"><strong>Question Description:</strong></label>
                 <input class="form-control" type="text" name="description" asp-for="@Model.questionDescription">
                 <span asp-validation-for="@Model.questionDescription" class="text-danger"></span>
             </div>
             <hr>
-            <div><strong>Answer Options for Question: @Model.questionID</strong></div>
-            <ul class="list-group" style="padding-top: 5px">
-                @foreach (var item in Model.optionsList)
-                {
-                    <li class="list-group-item">
-                        <input type="text" name="" value="@item.optionText"/>
-                    </li>
+            @* <div><strong>Answer Options for Question: @Model.questionID</strong></div> *@
+
+            @* <div class="row" style="padding-top: 5px">
+                @{int i = 0;}
+                @foreach (var item in Model.optionsList) {
+                    <div class="col"><input class="form-control" type="text" name="" value="@item.optionText"/>
+                    <ul class="list-group" style="padding-top: 5px">
+                    @foreach (var item2 in ViewBag.allCourses)
+                    {
+                        <li class="list-group-item">
+                            <input type="checkbox" asp-for-checkbox="true" name="courses[i][]" value="@item2.id"  checked="@(item.courses.Where(x => x.id == item2.id).Count() > 0 ? true : false)"/> @item2.course_code | @item2.course_name
+                        </li>
+                    }
+                    </ul>
+                    </div>
+                    i++;
                 }
-            </ul>
-            <hr>
-            
+            </div> *@
+
 
             <div class="centerDelete form-group">
                 <span><button class="btn btn-danger" type="submit">Edit</button></span>

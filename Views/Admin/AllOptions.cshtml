@@ -10,36 +10,33 @@
          <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Option Text</th>
+                            <th scope="col">Question</th>
+                            <th scope="col">Option Answer</th>
                             <th scope="col">Next Question</th>
-                            <th scope="col">Courses</th>
                             <th scope="col">View/Edit/Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model.option){
                         <tr>
+                            <td>@item.question.questionText</td>
                             <td>@item.optionText</td>
                             <td>@item.nextQuestion.questionText</td>
-                            <td>@foreach (var course in item.courses){
-                                @course.course_code
-                                }
-                            </td>
                             <td>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin" asp-action="ViewQuestion">
+                                    <form asp-controller="Admin" asp-action="ViewOption">
                                         <input type="hidden" name="id" value="@item.optionID"/>
                                         <input class="btn btn-info" type="Submit" value="View">
                                     </form>
                                 </span>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin" asp-action="EditQuestion">
+                                    <form asp-controller="Admin" asp-action="EditOption">
                                         <input type="hidden" name="id" value="@item.optionID"/>
                                         <input class="btn btn-info" type="Submit" value="Edit">
                                     </form>
                                 </span>
                                 <span class="courseButtons">
-                                    <form asp-controller="Admin" asp-action="DeleteCourse">
+                                    <form asp-controller="Admin" asp-action="DeleteOption">
                                         <input type="hidden" name="courseID" value="@item.optionID"/>
                                         <input class="btn btn-danger" type="Submit" value="Delete">
                                     </form>
