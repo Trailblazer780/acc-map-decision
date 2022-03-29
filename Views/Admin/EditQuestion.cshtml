@@ -12,12 +12,12 @@
             <input type="hidden" name="id" asp-for="@Model.questionID">
             <div class="form-group" style="max-width: 600px !important">
                 <label for="code"><strong>Question Text:</strong></label>
-                <input class="form-control" type="text" name="text" asp-for="@Model.questionText">
+                <input class="form-control" type="text"  asp-for="@Model.questionText">
                 <span asp-validation-for="@Model.questionText" class="text-danger"></span>
             </div>
                 <div class="form-group" style="max-width: 600px !important">
                 <label for="code"><strong>Question Description:</strong></label>
-                <input class="form-control" type="text" name="description" asp-for="@Model.questionDescription">
+                <input class="form-control" type="text" asp-for="@Model.questionDescription">
                 <span asp-validation-for="@Model.questionDescription" class="text-danger"></span>
             </div>
             <hr>

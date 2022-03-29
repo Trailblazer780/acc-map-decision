@@ -366,6 +366,33 @@ namespace accmapdecision.Controllers {
             return View("ViewQuestion", question);
         }
 
+        public IActionResult AddQuestion(){
+            // if not logged in send user back to home page
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+            ViewBag.allCourses = Admin.getAllCourses();
+            return View("AddQuestion", new Question());
+        }
+
+        [HttpPost]
+        public IActionResult AddQuestionSubmit(Question question){
+            if (HttpContext.Session.GetString("auth") != "true"){
+                return RedirectToAction("Index", "Home");
+            }
+            Admin = new AdminModel(HttpContext);
+
+            if(ModelState.IsValid) {
+                Admin.Add(question);
+                Admin.SaveChanges();
+                return RedirectToAction("AllQuestions");
+            } 
+            else{
+                return View("AddQuestion", question);
+            }
+        }
+
         [HttpPost]
         public IActionResult EditQuestion(int id) {
             // if not logged in send user back to home page
@@ -379,7 +406,7 @@ namespace accmapdecision.Controllers {
         }
 
         [HttpPost]
-        public IActionResult EditQuestionSubmit(int id, string text, string description, string[][] courses){
+        public IActionResult EditQuestionSubmit(Question question, int id, string text, string description, string[][] courses){
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
@@ -387,13 +414,15 @@ namespace accmapdecision.Controllers {
 
             Admin = new AdminModel(HttpContext);
 
-            Question question = Admin.getQuestion(id);
-            question.questionText = text;
-            question.questionDescription = description;
-            
-            Admin.Update(question);
-            Admin.SaveChanges();
-            return RedirectToAction("AllQuestions");
+            question = Admin.getQuestion(id);
+            if(ModelState.IsValid){
+                Admin.Update(question);
+                Admin.SaveChanges();
+                return RedirectToAction("AllQuestions");
+            }
+            else {
+                return View("EditQuestion", question);
+            }
         }
 
         [HttpPost]
@@ -409,13 +438,13 @@ namespace accmapdecision.Controllers {
         }
 
         [HttpPost]
-        public IActionResult DeleteQuestionSubmit(int id){
+        public IActionResult DeleteQuestionSubmit(Question question, int id){
             // if not logged in send user back to home page
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
             Admin = new AdminModel(HttpContext);
-            Question question = Admin.getQuestion(id);
+            question = Admin.getQuestion(id);
             Admin.Remove(question);
             Admin.SaveChanges();
             return RedirectToAction("AllQuestions");

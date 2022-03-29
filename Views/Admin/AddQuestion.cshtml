@@ -1,0 +1,31 @@
+@model Question;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - Add Question <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+
+    <div class="container">
+        <div stlye="padding-bottom: 10px">
+        </div>
+        <form style="width: 100%;" asp-controller="Admin" asp-action="AddQuestionSubmit">
+            <div class="form-group">
+                <label for="code"><strong>Question:</strong></label>
+                <input class="form-control" type="text" asp-for="@Model.questionText">
+                <span asp-validation-for="@Model.questionText" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                <label for="code"><strong>Question Description:</strong></label>
+                <input class="form-control" type="text" asp-for="@Model.questionDescription">
+                <span asp-validation-for="@Model.questionDescription" class="text-danger"></span>
+            </div>
+            <hr>
+
+            <div class="centerDelete form-group">
+                <span><button class="btn btn-info" type="submit">Edit</button></span>
+                <div style="padding-left: 5px;">
+                    <span><a asp-controller="Admin" asp-action="AllQuestions"><input type="button" class="btn btn-danger" value="Cancel"></a></span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

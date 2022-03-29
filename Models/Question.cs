@@ -8,6 +8,7 @@ namespace accmapdecision.Models {
     public class Question {
         public int questionID {get;set;}
         [Required]
+        [Display(Name = "Question")]
         public string questionText {get;set;}       // Question to display
 
         public string questionDescription {get;set;}       // Question description to display
