@@ -11,8 +11,9 @@ namespace accmapdecision.Models {
 
         public float totalCourseUnits {get;set;} = 0.0F;
 
-
         // Add selectedCourses and remainingCourses
+        public List<CourseModel> coursesSelected {get;set;} = new List<CourseModel>();     // Courses Selected by user
+        public List<CourseModel> coursesRemaining {get;set;} = new List<CourseModel>();     // Courses remaining to be selected
 
 
         public override string ToString() {
