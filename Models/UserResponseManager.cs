@@ -190,20 +190,23 @@ namespace accmapdecision.Models {
         }
 
         // Process the courses selected by user in each semester
-        public bool processSemesterCourses(int currentSemesterIdParam, int[] selectedCourseIds) {
+        public bool processSemesterCourses(int currentSemesterIdParam, int switchToSemesterID, int[] selectedCourseIds) {
             bool isLastSemester = false;
 
             if(userResponse.programCourseMap.semesterList.Count == 0){
                 populateProgramCourseMap();
                 currentSemesterID = 1;
             } else {
-                currentSemesterID = currentSemesterIdParam;
+                if(switchToSemesterID == 0) 
+                    currentSemesterID = currentSemesterIdParam;
+                else
+                    currentSemesterID = switchToSemesterID;
             }
 
             this.currentSemester = userResponse.programCourseMap.semesterList.Where(s => s.semesterId == currentSemesterID).FirstOrDefault();
             int currentSemesterIndex = userResponse.programCourseMap.semesterList.FindIndex(s => s.semesterId == currentSemesterID);
             
-            if(selectedCourseIds.Count() > 0) {
+            if(switchToSemesterID == 0 && (selectedCourseIds.Count() > 0 || this.currentSemester.eligibleCourses.Where(c => c.show).ToList().Count == 0)) {
 
                 // Handing unchecked courses: Remove current semester courses and add again from the checked courses
                 userResponse.coursesSelected = userResponse.coursesSelected.Except(currentSemester.coursesSelected).ToList();

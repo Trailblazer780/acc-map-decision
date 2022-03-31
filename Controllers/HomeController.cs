@@ -36,10 +36,10 @@ namespace accmapdecision.Controllers {
         }
 
         [HttpPost]
-        public IActionResult SelectCourses(UserResponseManager userResponseManagerModel, int currentSemesterID, int[] selectedCourses) {
+        public IActionResult SelectCourses(UserResponseManager userResponseManagerModel, int currentSemesterID, int switchToSemesterID, int[] selectedCourses) {
             this.userResponseManager = userResponseManagerModel;
 
-            if(userResponseManager.processSemesterCourses(currentSemesterID, selectedCourses)) {
+            if(userResponseManager.processSemesterCourses(currentSemesterID, switchToSemesterID, selectedCourses)) {
                 // Return decision view if questions ended
                 return View("FinalProgramMap", userResponseManager);
             }    

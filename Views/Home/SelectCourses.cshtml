@@ -49,7 +49,7 @@
                         <input type="hidden" asp-for="@Model.userResponseState" value="@Model.userResponseState">
 
                         @{ int switchToSemesterID = Model.currentSemesterID - 1; }
-                        <input type="hidden" name="currentSemesterID" value="@switchToSemesterID">
+                        <input type="hidden" name="switchToSemesterID" value="@switchToSemesterID">
 
                         <div class="form-group">
                             <span><button class="btn btn-info" type="submit">Previous</button></span>
