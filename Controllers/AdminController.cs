@@ -413,9 +413,22 @@ namespace accmapdecision.Controllers {
             }
 
             Admin = new AdminModel(HttpContext);
-
             question = Admin.getQuestion(id);
+
+
+
+            for(int i = 0; i < question.optionsList.ToList().Count; i++){
+                Console.WriteLine(question.optionsList.ToList()[i].optionText);
+                Console.WriteLine(question.optionsList.ToList()[i].optionID);
+
+                Admin.Attach(question.optionsList.ToList()[i]);
+                Admin.Update(question.optionsList.ToList()[i]);
+                Admin.SaveChanges();
+            }
+
+
             if(ModelState.IsValid){
+                // Admin.Update();
                 Admin.Update(question);
                 Admin.SaveChanges();
                 return RedirectToAction("AllQuestions");

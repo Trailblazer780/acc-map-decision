@@ -19,6 +19,14 @@
                 <span asp-validation-for="@Model.questionDescription" class="text-danger"></span>
             </div>
             <hr>
+            @* <ul class="list-group" style="padding-top: 5px">
+                @foreach (var item in Model.optionsList)
+                {
+                    <input class="form-control" value="@item.optionText" asp-for="@item.optionText">
+                }
+            </ul>
+            <hr> *@
+            
 
             <div class="centerDelete form-group">
                 <span><button class="btn btn-info" type="submit">Edit</button></span>
