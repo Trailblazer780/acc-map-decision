@@ -377,14 +377,35 @@ namespace accmapdecision.Controllers {
         }
 
         [HttpPost]
-        public IActionResult AddQuestionSubmit(Question question){
+        public IActionResult AddQuestionSubmit(Question question, string option1, string option2){
             if (HttpContext.Session.GetString("auth") != "true"){
                 return RedirectToAction("Index", "Home");
             }
             Admin = new AdminModel(HttpContext);
 
+
+
             if(ModelState.IsValid) {
                 Admin.Add(question);
+                Admin.SaveChanges();
+
+                Option optionOne = new Option(option1);
+                Option optionTwo = new Option(option2);
+
+                optionOne.question = question;
+                optionTwo.question = question;
+
+                optionOne.nextQuestion = Admin.getQuestion(99);
+                optionTwo.nextQuestion = Admin.getQuestion(99);
+
+                Admin.Attach(optionOne);
+                Admin.Attach(optionTwo);
+                List<Option> options = new List<Option>();
+                options.Add(optionOne);
+                options.Add(optionTwo);
+                // question.optionsList = options;
+                
+                
                 Admin.SaveChanges();
                 return RedirectToAction("AllQuestions");
             } 

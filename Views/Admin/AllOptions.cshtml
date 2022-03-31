@@ -12,8 +12,8 @@
                         <tr>
                             <th scope="col">Question</th>
                             <th scope="col">Option Answer</th>
-                            <th scope="col">Next Question</th>
-                            <th scope="col">View/Edit/Delete</th>
+                            @* <th scope="col">Next Question</th> *@
+                            <th scope="col">View/Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,9 +21,9 @@
                         <tr>
                             <td>@item.question.questionText</td>
                             <td>@item.optionText</td>
-                            <td>@item.nextQuestion.questionText</td>
+                            @* <td>@item.nextQuestion.questionText</td> *@
                             <td>
-                                <span class="courseButtons">
+                                <span class="courseButtons" stlye="display: inline">
                                     <form asp-controller="Admin" asp-action="ViewOption">
                                         <input type="hidden" name="id" value="@item.optionID"/>
                                         <input class="btn btn-info" type="Submit" value="View">
@@ -33,12 +33,6 @@
                                     <form asp-controller="Admin" asp-action="EditOption">
                                         <input type="hidden" name="id" value="@item.optionID"/>
                                         <input class="btn btn-info" type="Submit" value="Edit">
-                                    </form>
-                                </span>
-                                <span class="courseButtons">
-                                    <form asp-controller="Admin" asp-action="DeleteOption">
-                                        <input type="hidden" name="courseID" value="@item.optionID"/>
-                                        <input class="btn btn-danger" type="Submit" value="Delete">
                                     </form>
                                 </span>
                             </td>

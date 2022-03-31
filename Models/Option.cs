@@ -11,6 +11,9 @@ namespace accmapdecision.Models {
             this.optionText = optionText;
             this.nextQuestionId = nextQuestionId;
         }
+        public Option(string optionText) {
+            this.optionText = optionText;
+        }
 
         public int optionID {get;set;}
         public string optionText {get;set;}

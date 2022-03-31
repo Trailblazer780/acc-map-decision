@@ -177,7 +177,7 @@ CREATE TABLE `tblQuestion` (
   KEY `pk_questionId_idx` (`questionId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
-INSERT INTO `tblQuestion` VALUES (1,'Do I want ALP-AU or ACC?',NULL),(2,'Do I need to take Math?',NULL),(3,'Do I require College Health Math?',NULL),(4,'Did I take Academic Math in grade 10?',NULL),(5,'Do I need Math Foundations (Math 1043)?',NULL),(6,'Did I finish High School with \"Math at Work\"?',NULL),(7,'Do I require Full Academic Math?',NULL),(8,'Do I require Pre-Calculus Math?',NULL),(9,'Do I have Grade 12 Academic Math (or equivalent)?',NULL),(10,'Do I need to take English?',NULL),(11,'Do I need to take Biology?',NULL),(12,'Do I need to take Chemistry?',NULL),(13,'Do I need to take Physics?',NULL),(14,'Do I need Physics 1046, or do I need 1046 and 1047?',NULL),(15,'What is my highest level of Math?',NULL);
+INSERT INTO `tblQuestion` VALUES (1,'Do I want ALP-AU or ACC?',NULL),(2,'Do I need to take Math?',NULL),(3,'Do I require College Health Math?',NULL),(4,'Did I take Academic Math in grade 10?',NULL),(5,'Do I need Math Foundations (Math 1043)?',NULL),(6,'Did I finish High School with \"Math at Work\"?',NULL),(7,'Do I require Full Academic Math?',NULL),(8,'Do I require Pre-Calculus Math?',NULL),(9,'Do I have Grade 12 Academic Math (or equivalent)?',NULL),(10,'Do I need to take English?',NULL),(11,'Do I need to take Biology?',NULL),(12,'Do I need to take Chemistry?',NULL),(13,'Do I need to take Physics?',NULL),(14,'Do I need Physics 1046, or do I need 1046 and 1047?',NULL),(15,'What is my highest level of Math?',NULL), (99, '--- DEFAULT ---', NULL);
 
 
 CREATE TABLE `tblOption` (

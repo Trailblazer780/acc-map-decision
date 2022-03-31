@@ -22,9 +22,12 @@
             </div>
             <hr>
             <ul class="list-group" style="padding-top: 5px">
+                @{var i = 1; }
                 @foreach (var item in Model.optionsList)
                 {
+                    <label for="code"><strong>Option @i:</strong></label>    
                     <input class="form-control" value="@item.optionText" asp-for="@item.optionText">
+                    i++;
                 }
             </ul>
             <hr>

@@ -19,6 +19,12 @@
                 <span asp-validation-for="@Model.questionDescription" class="text-danger"></span>
             </div>
             <hr>
+            <div class="form-group">
+                <label for="code"><strong>Option 1:</strong></label>
+                <input class="form-control" type="text" name="option1">
+                <label for="code"><strong>Option 2:</strong></label>
+                <input class="form-control" type="text" name="option2">
+            </div>
             @* <ul class="list-group" style="padding-top: 5px">
                 @foreach (var item in Model.optionsList)
                 {
@@ -29,7 +35,7 @@
             
 
             <div class="centerDelete form-group">
-                <span><button class="btn btn-info" type="submit">Edit</button></span>
+                <span><button class="btn btn-info" type="submit">Add</button></span>
                 <div style="padding-left: 5px;">
                     <span><a asp-controller="Admin" asp-action="AllQuestions"><input type="button" class="btn btn-danger" value="Cancel"></a></span>
                 </div>
