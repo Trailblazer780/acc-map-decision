@@ -1,0 +1,28 @@
+@model UserResponseManager;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - Final Program Map</h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+
+    <div class="container d-flex flex-wrap justify-content-around text-center">
+
+        @foreach (var semester in Model.userResponse.programCourseMap.semesterList) {
+            <div class="my-4">
+                <div stlye="padding-bottom: 10px">
+                    <h1 class="text-center text-info">@semester.semesterTitle</h1>
+                </div>
+                <div><strong>Courses Selected in @semester.semesterTitle</strong></div>
+                <ul class="list-group" style="padding-top: 5px">
+                    @foreach (var course in semester.coursesSelected) {
+                        <li class="list-group-item">@course.courseCode | @course.courseName</li>
+                    }
+                </ul>
+            </div>
+        }
+
+    </div>
+
+    <div class="text-center">
+        <form asp-controller="Home" asp-action="Index" ><input class="btn btn-info my-4" type="Submit" value="Go Back to Homepage"></form>
+    </div>
+</div>

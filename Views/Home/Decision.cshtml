@@ -14,11 +14,12 @@
             <form asp-controller="Home" asp-action="Index" ><input class="btn btn-info my-4" type="Submit" value="Go Back to Homepage"></form>
         } else {
             <h2 class="text-center">You qualify for ACC Certificate</h2>
-            <form asp-controller="Home" asp-action="Index" ><input class="btn btn-info my-4" type="Submit" value="Go Back to Homepage"></form>
-            @* <form asp-controller="Home" asp-action="SelectCourses" >
+            @* <form asp-controller="Home" asp-action="Index" ><input class="btn btn-info my-4" type="Submit" value="Go Back to Homepage"></form> *@
+            <form asp-controller="Home" asp-action="SelectCourses" >
                 <input type="hidden" asp-for="@Model.userResponseState" value="@Model.userResponseState">
+                <input type="hidden" name="currentSemesterID" value="1">
                 <input class="btn btn-info my-4" type="Submit" value="Select Courses for Each Semester">
-            </form> *@
+            </form>
         }
         
     </div>
