@@ -4,19 +4,28 @@
     <span><h1 class="text-center text-info">ACC Map Decision - Final Program Map</h1></span>
     <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
 
-    <div class="container d-flex flex-wrap justify-content-around text-center">
+    @* <div class="container d-flex flex-wrap justify-content-around text-center"> *@
+    <div class="container row">
 
         @foreach (var semester in Model.userResponse.programCourseMap.semesterList) {
-            <div class="my-4">
+            <div class="my-4 col-12 col-lg-4">
                 <div stlye="padding-bottom: 10px">
                     <h1 class="text-center text-info">@semester.semesterTitle</h1>
                 </div>
-                <div><strong>Courses Selected in @semester.semesterTitle</strong></div>
-                <ul class="list-group" style="padding-top: 5px">
-                    @foreach (var course in semester.coursesSelected) {
-                        <li class="list-group-item">@course.courseCode | @course.courseName</li>
-                    }
-                </ul>
+                @* <div class="text-center mb-3"><strong>Courses Selected in @semester.semesterTitle</strong></div> *@
+
+                @if (semester.coursesSelected.Count > 0) {
+                    <ul class="list-group py-2 px-1 border rounded">
+                        @foreach (var course in semester.coursesSelected) {
+                            <div class="row small">
+                                <span class="col-4 font-weight-bold">@course.courseCode</span>
+                                <span class="col-8">@course.courseName</span>
+                            </div>
+                        }
+                    </ul>
+                } else {
+                    <div class="text-center font-weight-bold">Nothing Selected</div>
+                }
             </div>
         }
 
