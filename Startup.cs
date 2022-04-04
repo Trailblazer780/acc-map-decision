@@ -9,6 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.FileProviders ;
+using Microsoft.Extensions.Primitives;
+// using Microsoft.Owin;
+// using Microsoft.Owin.StaticFiles;
+using Microsoft.Extensions.Configuration;
 
 namespace accmapdecision
 {
@@ -63,6 +68,15 @@ namespace accmapdecision
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // app.UseFileServer(new FileServerOptions {
+            //     FileProvider = new PhysicalFileProvider(
+            //         System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "StaticSpace")
+            //     ),
+            //     RequestPath ="",EnableDefaultFiles = true
+                
+            // }); 
+            // Console.WriteLine("Static Folder: StaticSpace  Created");
         }
     }
 }

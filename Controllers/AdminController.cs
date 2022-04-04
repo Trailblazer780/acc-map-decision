@@ -253,6 +253,12 @@ namespace accmapdecision.Controllers {
             CSVModel csv = new CSVModel();
             csv.WriteCSV(courses);
 
+                // BrowserDownload download = new BrowserDownload();
+                
+                // BrowserDownload.downloadFile("File.csv",Environment.CurrentDirectory );
+
+             
+
             // return the view
             return RedirectToAction("AllCourses", Admin);
         }
