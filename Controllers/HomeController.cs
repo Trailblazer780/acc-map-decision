@@ -39,10 +39,21 @@ namespace accmapdecision.Controllers {
         public IActionResult SelectCourses(UserResponseManager userResponseManagerModel, int currentSemesterID, int switchToSemesterID, int[] selectedCourses) {
             this.userResponseManager = userResponseManagerModel;
 
+            bool isFirstRequest = false;
+            if(userResponseManager.userResponse.programCourseMap.semesterList.Count == 0) {
+                isFirstRequest = true;
+            }
+
             if(userResponseManager.processSemesterCourses(currentSemesterID, switchToSemesterID, selectedCourses)) {
                 // Return decision view if questions ended
                 return View("FinalProgramMap", userResponseManager);
             }    
+
+            if(!isFirstRequest && userResponseManager.errorMessage != "") {
+                ViewBag.errorMessage = userResponseManager.errorMessage;
+            } else {
+                ViewBag.errorMessage = "";
+            }
 
             return View(userResponseManager);
         }

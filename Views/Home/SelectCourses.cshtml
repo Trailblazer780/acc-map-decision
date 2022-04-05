@@ -22,6 +22,10 @@
             </div>
         </div>
 
+        @if (ViewBag.errorMessage != "") {
+            <div class="alert alert-danger my-4 text-center" role="alert">@ViewBag.errorMessage</div>
+        }
+
         <form style="width: 100%;" asp-controller="Home" asp-action="SelectCourses">
             <input type="hidden" asp-for="@Model.userResponseState" value="@Model.userResponseState">
             <input type="hidden" name="currentSemesterID" value="@Model.currentSemesterID">

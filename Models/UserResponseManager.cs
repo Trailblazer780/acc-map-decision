@@ -22,6 +22,8 @@ namespace accmapdecision.Models {
         private int _currentQuestionID;
         private int _currentSemesterID;
 
+        public string errorMessage {get; set;} = "";
+
         public QuestionModel currentQuestion {
             get {
                 return _currentQuestion;
@@ -224,6 +226,12 @@ namespace accmapdecision.Models {
                 }
                 userResponse.programCourseMap.semesterList[currentSemesterIndex] = this.currentSemester;
 
+
+
+// Add last semester course to the list directly without showing the last page
+
+
+
                 // Update currentSemester with next semester to show
                 if(currentSemesterIdParam < 6) {
                     currentSemesterID = currentSemesterIdParam + 1;
@@ -235,6 +243,11 @@ namespace accmapdecision.Models {
                 // If nothing selected in the next semester, update the courses based on pre-requisites and already selected list
                 if(currentSemester.coursesSelected.Count == 0)
                     this.updateSemesterEligibleCoursesList();
+            } 
+
+            // If nothing selected from the list of eligible courses
+            if(switchToSemesterID == 0 && selectedCourseIds.Count() == 0 && this.currentSemester.eligibleCourses.Where(c => c.show).ToList().Count > 0) {
+                this.errorMessage = "Please select atleast one course";
             }
 
             // foreach(SemesterCourseMap semesterCourseMap in userResponse.programCourseMap.semesterList) {

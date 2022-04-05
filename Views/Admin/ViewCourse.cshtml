@@ -15,20 +15,21 @@
         <hr>
         <div><strong>Prerequisites</strong></div> 
         <div>
-        <ul class="list-group" style="padding-top: 5px">
-            @if(Model.requisites.Count > 0){
-                @foreach (var item in Model.requisites)
-                {
-                    <li class="list-group-item">@item.requiredCourse.course_code - @item.requiredCourse.course_name</li>
+            <ul class="list-group" style="padding-top: 5px">
+                @if(Model.requisites.Count > 0){
+                    @foreach (var item in Model.requisites)
+                    {
+                        <li class="list-group-item">@item.requiredCourse.course_code - @item.requiredCourse.course_name</li>
+                    }
                 }
-            }
-            @if(Model.requisites.Count == 0)
-            {
-                <li class="list-group-item">No prerequisites</li>
-            }
-        </ul>
-        <div class="text-center" style="padding: 10px">
-            <a href="AllCourses"><input type="submit" class="btn btn-info" value="Back to View Courses"/></a>
+                @if(Model.requisites.Count == 0)
+                {
+                    <li class="list-group-item">No prerequisites</li>
+                }
+            </ul>
+            <div class="text-center" style="padding: 10px">
+                <a href="AllCourses"><input type="submit" class="btn btn-info" value="Back to View Courses"/></a>
+            </div>
         </div>
     </div>
 </div>
