@@ -1,0 +1,23 @@
+Questions,Response
+Do I want ALP-AU or ACC?,ACC - Academic and Career Connections
+Do I need to take Math?,Yes
+Do I require College Health Math?,Yes
+Did I take Academic Math in grade 10?,Yes
+Do I need Math Foundations (Math 1043)?,Yes
+"Did I finish High School with ""Math at Work""?",Yes
+Do I require Full Academic Math?,
+Do I require Pre-Calculus Math?,
+Do I have Grade 12 Academic Math (or equivalent)?,
+Do I need to take English?,Yes
+Do I need to take Biology?,Yes
+Do I need to take Chemistry?,Yes
+Do I need to take Physics?,Yes
+"Do I need Physics 1046, or do I need 1046 and 1047?",Yes
+What is my highest level of Math?,
+--- DEFAULT ---,
+
+Fall 2022,Winter 2023,Spring 2023,Fall 2023,Winter 2024,Spring 2024
+College Health Mathematics I,College Biology I,College Chemistry II,Math Foundations,College Biology II,
+College Physics I,College Chemistry I,,Essential Communication Skills,College Physics II,
+,,,,Workplace Development,
+

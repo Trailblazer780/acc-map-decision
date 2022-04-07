@@ -129,7 +129,7 @@ namespace accmapdecision.Models {
                         semesterCourseMap.eligibleCourses.Add(userResponse.coursesToInclude.Where(c => c.courseID == course.id).FirstOrDefault());
                     }
                 }
-
+                
                 programCourseMap.semesterList.Add(semesterCourseMap);
             }
             userResponse.programCourseMap = programCourseMap;
