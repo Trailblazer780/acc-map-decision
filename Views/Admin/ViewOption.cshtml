@@ -1,0 +1,33 @@
+@model Option;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - View Option  <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+    <div class="container">
+        <h1 class="text-center text-info">Viewing Option info for question: @Model.question.questionText</h1>
+        <div><strong>Question ID:</strong> @Model.question.questionID</div>
+        <hr>
+        <div><strong>Question:</strong> @Model.question.questionText</div>
+        <hr>
+        <div><strong>Next Question:</strong> @Model.nextQuestion.questionText</div>
+        <hr>
+        <div><strong>Option Text:</strong> @Model.optionText</div>
+        <hr>
+        <div><strong>Courses added on answer:</strong>
+            @if(Model.courses.Count > 0){
+                @foreach (var item in Model.courses)
+                {
+                    <span><div>@item.course_code @item.course_name</div></span>
+                }
+            }
+            else
+            {
+                <div>No courses added on this answer</div>
+            }
+
+            <div class="text-center">
+                <a href="AllOptions"><input type="submit" class="btn btn-info" value="Back to View Options"/></a>
+            </div>
+        </div>
+    </div>
+</div>

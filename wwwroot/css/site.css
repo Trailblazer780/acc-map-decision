@@ -1,6 +1,28 @@
 ﻿body {
   margin-top: 30px;
+  height: 100%;
 }
+html
+{
+  height: 100%;
+} 
+
+#sticky-footer {
+  background-color: #004477 !important;
+  position: fixed;
+  padding: 10px 10px 0px 10px;
+  bottom: 0;
+  width: 100%;
+}
+
+#spacer{
+  height: 100px;
+}
+
+#page-content {
+  flex: 1 0 auto;
+}
+
 .firstButton {
   width: 350px;
 }

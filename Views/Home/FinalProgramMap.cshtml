@@ -1,0 +1,52 @@
+@model UserResponseManager;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - Final Program Map</h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+
+            <span>
+                <form asp-controller="Download" asp-action="DownloadFile" >
+                    <input type="hidden" asp-for="@Model.userResponseState" value="@Model.userResponseState"> 
+
+                    @* @foreach (var semester in Model.userResponse.programCourseMap.semesterList) {
+                        @semester.semesterTitle<br>
+                        @foreach (var course in semester.coursesSelected) {
+                            @course.courseCode;
+                            @course.courseName;<br>
+                        } <br>
+                    } *@
+                    <input class="btn btn-info download-csv" type="Submit" value="Export">
+                </form>
+            </span>
+
+    @* <div class="container d-flex flex-wrap justify-content-around text-center"> *@
+    <div class="container row">
+
+        @foreach (var semester in Model.userResponse.programCourseMap.semesterList) {
+            <div class="my-4 col-12 col-lg-4">
+                <div stlye="padding-bottom: 10px">
+                    <h1 class="text-center text-info">@semester.semesterTitle</h1>
+                </div>
+                @* <div class="text-center mb-3"><strong>Courses Selected in @semester.semesterTitle</strong></div> *@
+
+                @if (semester.coursesSelected.Count > 0) {
+                    <ul class="list-group py-2 px-1 border rounded">
+                        @foreach (var course in semester.coursesSelected) {
+                            <div class="row small">
+                                <span class="col-4 font-weight-bold">@course.courseCode</span>
+                                <span class="col-8">@course.courseName</span>
+                            </div>
+                        }
+                    </ul>
+                } else {
+                    <div class="text-center font-weight-bold">Nothing Selected</div>
+                }
+            </div>
+        }
+
+    </div>
+
+    <div class="text-center">
+        <form asp-controller="Home" asp-action="Index" ><input class="btn btn-info my-4" type="Submit" value="Go Back to Homepage"></form>
+    </div>
+</div>

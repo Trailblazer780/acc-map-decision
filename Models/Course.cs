@@ -19,6 +19,9 @@ namespace accmapdecision.Models {
         [Required]
         [Display(Name="Course Name")]
         public string course_name {get; set;}
+        // [Required]
+        [Display(Name="Course Units")]
+        public float course_units {get; set;}
         [Required]
         [Display(Name="Course Description")]
         public string course_description {get; set;}
@@ -27,6 +30,10 @@ namespace accmapdecision.Models {
         public string course_rationale {get; set;}
         public ICollection<Semester> semesters {get; set;}
         public List <CourseOffered> courseOffered {get; set;}
+
+        // Options the course is linked to
+        public ICollection<Option> options {get; set;}
+        public List<OptionCourseMapping> optionCourseMapping {get; set;}
 
         public List<Requisite> requisites {get; set;}
         public List<Requisite> requisites2 {get; set;}      // Not used 

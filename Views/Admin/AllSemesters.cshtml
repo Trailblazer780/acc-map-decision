@@ -1,7 +1,7 @@
 @model AdminModel;
 
 <div>
-    <span><h1 class="text-center text-info">ACC Map Decision - View Course Semesters   <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span><h1 class="text-center text-info">ACC Map Decision - View Semesters   <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
     <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
 
     <div class="container">
@@ -9,7 +9,11 @@
             <div>
                 <div style="padding-bottom: 5px">
                     <a href="Index"><input type="submit" class="btn btn-info" value="Back"/></a>
+<<<<<<< HEAD
                     @* <span><form asp-controller="Admin" asp-action="Export" ><input class="btn btn-info" type="Submit" value="Export"></form></span> *@
+=======
+                    <a href="AddSemester"><input type="submit" class="btn btn-info" value="Add Semester"/></a>
+>>>>>>> cff145e23abc0dc08d8e5d73b27e068b05406e06
                 </div>
                 <table class="table table-striped">
                     <thead>

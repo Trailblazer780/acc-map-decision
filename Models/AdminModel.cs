@@ -19,7 +19,9 @@ namespace accmapdecision.Models {
 
         private DbSet<Course> tblCourse {get; set;}
         private DbSet<Semester> tblSemester {get; set;}
+        private DbSet<Question> tblQuestion {get; set;}
         private DbSet<CourseOffered> tblCourse_semester {get; set;}
+        private DbSet<Option> tblOption {get; set;}
 
         public List<Course> course {
             get {
@@ -48,6 +50,21 @@ namespace accmapdecision.Models {
             }
         }
 
+        public List<Question> question {
+            get {
+                return tblQuestion.OrderBy(i => i.questionID).Include(one => one.optionsList).ToList();
+            }
+        }
+        public List<Option> option {
+            get {
+                return tblOption.OrderBy(i => i.optionID).Include(one => one.courses).Include(two => two.nextQuestion).Include(three => three.question).ToList();
+            }
+        }
+
+        public Option getOption(int id) {
+            return tblOption.Where(i => i.optionID == id).Include(one => one.courses).Include(two => two.nextQuestion).Include(three => three.question).FirstOrDefault();
+        }
+
         public Semester getSemester(int id) {
             return tblSemester.Where(i => i.semester_id == id).Include(one => one.courses).FirstOrDefault();
         }
@@ -56,12 +73,21 @@ namespace accmapdecision.Models {
             return tblCourse.Where(i => i.id == id).FirstOrDefault();
         }
 
+        public Question getQuestion(int id) {
+            return tblQuestion.Where(i => i.questionID == id).Include(one => one.optionsList).ThenInclude(two => two.courses).FirstOrDefault();
+        }
+
+
         public Course getCourseRequisites(int id){
             return tblCourse.Where(i => i.id == id).Include(one => one.requisites).ThenInclude(one => one.requiredCourse).FirstOrDefault();
         }
 
         public List<Course> getAllCourses() {
             return tblCourse.OrderBy(i => i.id).ToList();
+        }
+
+        public List<Question> getAllQuestions() {
+            return tblQuestion.OrderBy(i => i.questionID).ToList();
         }
 
         public void Logout() {
@@ -94,6 +120,27 @@ namespace accmapdecision.Models {
                         .WithMany(a => a.requisites2)
                         .HasForeignKey(ad => ad.required_course_id)
                         .OnDelete(DeleteBehavior.Restrict);
+
+            // Question - Option
+            modelBuilder.Entity<Option>()
+                        .HasOne<Question>(s => s.question)
+                        .WithMany(g => g.optionsList)
+                        .HasForeignKey(s => s.questionId);
+
+            modelBuilder.Entity<Option>()
+                        .HasOne<Question>(s => s.nextQuestion)
+                        .WithMany()
+                        .HasForeignKey(s => s.nextQuestionId);
+
+            
+            // Option - Course mapping
+            modelBuilder.Entity<OptionCourseMapping>().HasKey(oc => new { oc.courseId, oc.optionId });
+
+            modelBuilder.Entity<Option>().HasMany(p => p.courses).WithMany(p => p.options).UsingEntity<OptionCourseMapping>(
+                j => j.HasOne(pt => pt.course).WithMany(t => t.optionCourseMapping).HasForeignKey(pt => pt.courseId),
+                j => j.HasOne(pt => pt.option).WithMany(p => p.optionCourseMapping).HasForeignKey(pt => pt.optionId)
+            );
+
 
         }
     }

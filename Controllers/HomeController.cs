@@ -5,6 +5,7 @@ using System.IO;
 using System.Globalization;
 using CsvHelper;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace accmapdecision.Controllers {
 
@@ -25,6 +26,7 @@ namespace accmapdecision.Controllers {
 
         public IActionResult Index(UserResponseManager userResponseManagerModel, int selectedOptionId, int currentQuestionID) {
             this.userResponseManager = userResponseManagerModel;
+<<<<<<< HEAD
             
             if(!userResponseManager.isQuestionsPopulated){
                 userResponseManager.populateUserResponseModel();
@@ -33,35 +35,45 @@ namespace accmapdecision.Controllers {
 
 
             if(selectedOptionId == 0) {     // First request
+=======
+>>>>>>> cff145e23abc0dc08d8e5d73b27e068b05406e06
 
-            } else {
-                Console.WriteLine("\n\nSelected Option: " + selectedOptionId);
-                Console.WriteLine(currentQuestionID + " QID");
-
-                // Fetch current question object
-                Question currentQuestion = userResponseManager.userResponse.questionsAndResponses.Find(x => x.questionID == currentQuestionID);
-                int currentQuestionIndex = userResponseManager.userResponse.questionsAndResponses.FindIndex(x => x.questionID == currentQuestionID);
-
-                // Fetch selected option object
-                Option optionSelected = currentQuestion.optionsList.Find(x => x.optionID == selectedOptionId);
-
-                // Update current question object with selected option
-                currentQuestion.optionSelected = optionSelected;
-                userResponseManager.userResponse.questionsAndResponses[currentQuestionIndex] = currentQuestion;
-
-                // Fetch next question based on nextQuestionId
-                Question nextQuestion = userResponseManager.userResponse.questionsAndResponses.Find(x => x.questionID == optionSelected.nextQuestionId);
-
-                // Set next question as current question and return the model
-                userResponseManager.currentQuestionID = optionSelected.nextQuestionId;
-                userResponseManager.currentQuestion = nextQuestion;
+            if(userResponseManager.processUserResponse(selectedOptionId, currentQuestionID)) {
+                // Return decision view if questions ended
+                return View("Decision", userResponseManager);
             }
+
+            return View(userResponseManager);
+        }
+
+        [HttpPost]
+        public IActionResult SelectCourses(UserResponseManager userResponseManagerModel, int currentSemesterID, int switchToSemesterID, int[] selectedCourses) {
+            this.userResponseManager = userResponseManagerModel;
+
+            bool isFirstRequest = false;
+            if(userResponseManager.userResponse.programCourseMap.semesterList.Count == 0) {
+                isFirstRequest = true;
+            }
+
+            if(userResponseManager.processSemesterCourses(currentSemesterID, switchToSemesterID, selectedCourses)) {
+                // Return decision view if questions ended
+                return View("FinalProgramMap", userResponseManager);
+            }    
+
+            if(!isFirstRequest && userResponseManager.errorMessage != "") {
+                ViewBag.errorMessage = userResponseManager.errorMessage;
+            } else {
+                ViewBag.errorMessage = "";
+            }
+<<<<<<< HEAD
             
             // if(currentQuestionID==2) { // supposed to be 3 but it throws an error
             //     CSVModel csv = new CSVModel();
             //     csv.WriteCSV(userResponseManager.userResponse);
             // Once we fix the user response error we'll add an option to export the data after answering questions
             // }
+=======
+>>>>>>> cff145e23abc0dc08d8e5d73b27e068b05406e06
 
             return View(userResponseManager);
         }

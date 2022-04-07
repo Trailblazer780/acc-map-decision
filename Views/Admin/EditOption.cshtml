@@ -1,0 +1,39 @@
+@model Option;
+
+<div>
+    <span><h1 class="text-center text-info">ACC Map Decision - Edit Option  <form asp-controller="Admin" asp-action="Logout" ><input class="btn btn-info" type="Submit" value="Logout"></form></h1></span>
+    <span id="lblExpire" class="text-warning" style="margin-left:10px; font-size: medium;"></span>
+    <div class="container">
+        <h1 class="text-center text-info">Editing Option info for question: @Model.question.questionText</h1>
+        <div><strong>Question ID:</strong> @Model.question.questionID</div>
+        <hr>
+        <div><strong>Question:</strong> @Model.question.questionText</div>
+        <hr>
+        <div><strong>Next Question:</strong></div>
+        <form method="post" asp-controller="Admin" asp-action="EditOptionSubmit">
+            <input type="hidden" name="id" value="@Model.optionID">
+            <select class="form-control" name="nextQuestion">
+                @foreach (var question in ViewBag.allQuestions){
+                    <option value="@question.questionID" selected="@(Model.nextQuestion.questionID == @question.questionID ? true : false)">@question.questionText</option>
+                }
+            </select>
+            <hr>
+            <div><strong>Option Text:</strong> <input class="form-control" type="text" name="optionText" value="@Model.optionText"></div>
+            <hr>
+            <div><strong>Courses added on answer:</strong>
+                <ul class="list-group" style="padding-top: 5px">
+                    @foreach (var item in ViewBag.allCourses)
+                    {
+                        <li class="list-group-item">
+                            <input type="checkbox" id="@item.id" asp-for-checkbox="true" name="courses[]" value="@item.id" checked="@(Model.courses.Contains(item)  ? true : false)" /> <label for="@item.id">@item.course_code | @item.course_name</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="text-center" style="padding-top: 10px">
+                <input type="submit" class="btn btn-info" value="Edit"/>
+                <span><a asp-controller="Admin" asp-action="AllOptions"><input type="button" class="btn btn-danger" value="Cancel"></a></span>
+            </div>
+        </form>
+    </div>
+</div>
