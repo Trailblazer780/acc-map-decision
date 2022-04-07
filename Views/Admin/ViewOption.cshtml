@@ -14,19 +14,20 @@
         <div><strong>Option Text:</strong> @Model.optionText</div>
         <hr>
         <div><strong>Courses added on answer:</strong>
-        @if(Model.courses.Count > 0){
-            @foreach (var item in Model.courses)
-            {
-                <span><div>@item.course_code @item.course_name</div></span>
+            @if(Model.courses.Count > 0){
+                @foreach (var item in Model.courses)
+                {
+                    <span><div>@item.course_code @item.course_name</div></span>
+                }
             }
-        }
-        else
-        {
-            <div>No courses added on this answer</div>
-        }
+            else
+            {
+                <div>No courses added on this answer</div>
+            }
 
-        <div class="text-center">
-            <a href="AllOptions"><input type="submit" class="btn btn-info" value="Back to View Options"/></a>
+            <div class="text-center">
+                <a href="AllOptions"><input type="submit" class="btn btn-info" value="Back to View Options"/></a>
+            </div>
         </div>
     </div>
 </div>
