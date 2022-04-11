@@ -17,17 +17,16 @@ namespace accmapdecision.Controllers {
         {
             Environment = _environment;
         }
+
             [HttpPost]
             public FileStreamResult DownloadFile(UserResponseManager userResponseManagerModel)
         {
-
             // 1- Create CSV with the data
             CSVModel csv = new CSVModel();
             csv.WriteCSV(userResponseManagerModel.userResponse);
 
             // 2- Download the file
-            //Determine the Content Type of the File.
-            string contentType = "";
+            string contentType = ""; //Determine the Content Type of the File.
 
             new FileExtensionContentTypeProvider().TryGetContentType(csv.FileName, out contentType);
 
@@ -37,14 +36,13 @@ namespace accmapdecision.Controllers {
             //Read the File data into FileStream.
             FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
 
+            // 3- Delete the local file
+            if(System.IO.File.Exists(@path))
+            {
+                System.IO.File.Delete(@path);   
+            }
             //Send the File to Download.
             return new FileStreamResult(fileStream, contentType);
-
-            // 3- Delete the file
-            // if(File.Exists(@"C:\test.txt"))
-            // {
-            //     File.Delete(@"C:\test.txt");
-            // }
         }
 
 

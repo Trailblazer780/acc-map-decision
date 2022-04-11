@@ -53,7 +53,6 @@ namespace accmapdecision.Models {
                 //   File.Open(csvPath));
                   csvWriter.Flush();
             } Console.WriteLine("CSV File Created");
-            // Delete the csv file from project folder
         } // end of CSV-UserResponse
         public async void WriteCSV() {
         }
