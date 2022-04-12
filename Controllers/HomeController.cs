@@ -28,7 +28,7 @@ namespace accmapdecision.Controllers {
                 isFirstRequest = true;
             }
             if(userResponseManager.processSemesterCourses(currentSemesterID, switchToSemesterID, selectedCourses)) {
-                // Return decision view if questions ended
+                // Return FinalProgramMap view if semesters ended
                 return View("FinalProgramMap", userResponseManager);
             }    
             if(!isFirstRequest && userResponseManager.errorMessage != "") {

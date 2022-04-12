@@ -133,6 +133,7 @@ namespace accmapdecision.Models {
                 }
                 
                 programCourseMap.semesterList.Add(semesterCourseMap);
+                programCourseMap.lastSemesterId = semester.semester_id;
             }
             userResponse.programCourseMap = programCourseMap;
         }
@@ -194,10 +195,12 @@ namespace accmapdecision.Models {
         // Process the courses selected by user in each semester
         public bool processSemesterCourses(int currentSemesterIdParam, int switchToSemesterID, int[] selectedCourseIds) {
             bool isLastSemester = false;
+            bool isFirstRequest = false;
 
             if(userResponse.programCourseMap.semesterList.Count == 0){
                 populateProgramCourseMap();
                 currentSemesterID = 1;
+                isFirstRequest = true;
             } else {
                 if(switchToSemesterID == 0) 
                     currentSemesterID = currentSemesterIdParam;
@@ -208,6 +211,11 @@ namespace accmapdecision.Models {
             this.currentSemester = userResponse.programCourseMap.semesterList.Where(s => s.semesterId == currentSemesterID).FirstOrDefault();
             int currentSemesterIndex = userResponse.programCourseMap.semesterList.FindIndex(s => s.semesterId == currentSemesterID);
             
+            // If nothing selected from the list of eligible courses
+            if(switchToSemesterID == 0 && selectedCourseIds.Count() == 0 && this.currentSemester.eligibleCourses.Where(c => c.show).ToList().Count > 0) {
+                this.errorMessage = "Please select atleast one course";
+            }
+
             if(switchToSemesterID == 0 && (selectedCourseIds.Count() > 0 || this.currentSemester.eligibleCourses.Where(c => c.show).ToList().Count == 0)) {
 
                 // Handing unchecked courses: Remove current semester courses and add again from the checked courses
@@ -233,7 +241,7 @@ namespace accmapdecision.Models {
 
 
                 // Update currentSemester with next semester to show
-                if(currentSemesterIdParam < 6) {
+                if(currentSemesterIdParam < userResponse.programCourseMap.lastSemesterId) {
                     currentSemesterID = currentSemesterIdParam + 1;
                     this.currentSemester = userResponse.programCourseMap.semesterList.Where(s => s.semesterId == currentSemesterID).FirstOrDefault();
                 } else {
@@ -244,10 +252,9 @@ namespace accmapdecision.Models {
                 if(currentSemester.coursesSelected.Count == 0)
                     this.updateSemesterEligibleCoursesList();
             } 
-
-            // If nothing selected from the list of eligible courses
-            if(switchToSemesterID == 0 && selectedCourseIds.Count() == 0 && this.currentSemester.eligibleCourses.Where(c => c.show).ToList().Count > 0) {
-                this.errorMessage = "Please select atleast one course";
+            
+            if(isFirstRequest) {
+                this.updateSemesterEligibleCoursesList();
             }
 
             // foreach(SemesterCourseMap semesterCourseMap in userResponse.programCourseMap.semesterList) {
@@ -286,6 +293,17 @@ namespace accmapdecision.Models {
                 // If all pre-requisites are selected, set show = true
                 else if(courseModel.preRequisites.Intersect(userResponse.coursesSelected).Count() == courseModel.preRequisites.Count()) {
                     courseModel.show = true;
+                    courseModel.mustSelect = true;
+
+                    List<SemesterCourseMap> nextSemesters = userResponse.programCourseMap.semesterList.FindAll(s => s.semesterId > this.currentSemester.semesterId).ToList();
+
+                    foreach(SemesterCourseMap semesterCourseMap in nextSemesters) {
+                        if(semesterCourseMap.eligibleCourses.Contains(courseModel)) {
+                            courseModel.mustSelect = false;
+                            break;
+                        }
+                    }
+
                 } else {
                     courseModel.show = false;
                 }
