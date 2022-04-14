@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS `tblUsers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `tblUsers` (`username`, `password`, `salt`) VALUES
-('Ethan', 'J8KyEuRtSyN3eZuhwKpa9Ob/6ZGVT2ki1z4lxL3tuM0=', 'HAsTR1XIUynLxYCIwA2zdg==');
+('Ethan', 'J8KyEuRtSyN3eZuhwKpa9Ob/6ZGVT2ki1z4lxL3tuM0=', 'HAsTR1XIUynLxYCIwA2zdg=='),
+('ACCAdvise', 'DxH8vp87w2u7V+v3c76iy57Oxh8izuTSxEOEMf0Yniw=', 'jND5TANROqFV8/DTSR+J2g==');
 
 CREATE TABLE `tblCourse` (
   `id` int NOT NULL AUTO_INCREMENT,

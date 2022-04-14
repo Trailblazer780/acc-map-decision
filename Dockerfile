@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/microsoft-dotnet
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
 WORKDIR /source/aspnetapp
 
@@ -14,9 +14,9 @@ RUN dotnet restore
 RUN dotnet publish --output "/app" --configuration release --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build /app ./
 
 # ATTENTION => change this dll to match the name of the csproj file of your web app
-ENTRYPOINT ["dotnet", "acc-map-decision.dll"]
+ENTRYPOINT ["dotnet", "accmapdecision.dll"]
