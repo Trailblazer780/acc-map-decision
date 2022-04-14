@@ -10,6 +10,7 @@ namespace accmapdecision.Models {
             this.courseUnits = courseUnits;
             this.preRequisites = new List<CourseModel>();
             this.show = true;
+            this.mustSelect = false;
         }
 
         public int courseID {get;set;}
@@ -17,6 +18,7 @@ namespace accmapdecision.Models {
         public string courseName {get;set;}
         public float courseUnits {get;set;}
         public bool show {get;set;}
+        public bool mustSelect {get;set;}
         public List<CourseModel> preRequisites {get; set;}
 
         public override string ToString() {

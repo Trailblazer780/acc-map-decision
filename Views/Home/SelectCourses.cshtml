@@ -10,9 +10,9 @@
         </div>
 
         <div class="alert alert-primary my-4 text-center" role="alert">
-            <div class="pb-2">Total course units for <strong>part-time</strong> study should be less than <strong>3.5</strong> in each semester</div>
+            <div class="pb-2">Total course units for <strong>part-time</strong> study should not be more than <strong>3.5</strong> in each semester</div>
             <div class="">
-                If you have <strong>CHEM/PHYS</strong> AND <strong>MATH</strong> in the courses below, please select <strong>MATH 1</strong> in the precedding or same term as the <strong>CHEM/PHYS 1</strong>. Don't take <strong>CHEM</strong> or <strong>PHYS</strong> Before <strong>MATH</strong>!
+                If you have <strong>CHEM/PHYS</strong> AND <strong>MATH</strong> in the courses below, please select <strong>MATH 1</strong> in the preceding or same term as the <strong>CHEM/PHYS 1</strong>. Don't take <strong>CHEM</strong> or <strong>PHYS</strong> Before <strong>MATH</strong>!
             </div>
         </div>
 
@@ -36,7 +36,12 @@
                 @foreach (var item in Model.currentSemester.eligibleCourses) {
                     if(item.show) {
                         <li class="list-group-item row">
-                            <input onchange="onCourseSelect(@item.courseUnits, this)" class="col-1" type="checkbox" asp-for-checkbox="true" name="selectedCourses[]" id="@item.courseID" value="@item.courseID" checked="@(Model.currentSemester.coursesSelected.FindIndex(x => x.courseID == item.courseID) != -1 ? true : false)" />
+                            @if(item.mustSelect) {
+                                <input onchange="onCourseSelect(@item.courseUnits, this)" class="col-1" type="checkbox" asp-for-checkbox="true" name="selectedCourses[]" id="@item.courseID" value="@item.courseID" checked disabled />
+                                <input class="col-1" type="hidden" name="selectedCourses[]" id="@item.courseID" value="@item.courseID" />
+                            } else {
+                                <input onchange="onCourseSelect(@item.courseUnits, this)" class="col-1" type="checkbox" asp-for-checkbox="true" name="selectedCourses[]" id="@item.courseID" value="@item.courseID" checked="@(Model.currentSemester.coursesSelected.FindIndex(x => x.courseID == item.courseID) != -1 ? true : false)" />
+                            }
                             <label for="@item.courseID" class="col-10">
                                 <div class="row">
                                     <span class="col-3 font-weight-bold">@item.courseCode</span>
@@ -49,12 +54,11 @@
                 }
             </ul>
 
-
-            <ul class="list-group" style="padding-top: 5px">
+            @* <ul class="list-group" style="padding-top: 5px">
                 @foreach (var course in Model.userResponse.coursesSelected) {
                     <li class="list-group-item">@course.courseCode | @course.courseUnits </li>
                 }
-            </ul>
+            </ul> *@
 
             <hr>
             <div class="centerDelete form-group">
